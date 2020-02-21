@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body>
+  <div class="root">
+    <header class="header root__section">
+      <img src="./images/logo.svg" alt="mesto logo" class="logo">
+    </header>
+    <div class="profile root__section">
+      <div class="user-info">
+        <div class="user-info__photo"></div>
+        <div class="user-info__data">
+          <h1 class="user-info__name"></h1>
+          <p class="user-info__job"></p>
+          <button class="user-info__edit-button">Edit</button>
+        </div>
+        <button class="button user-info__button">+</button>
+      </div>
+    </div>
+    <div class="places-list root__section">
+    </div>
+    <div class="popup" id="popup">
+      <div class="popup__content">
+        <img src="./images/close.svg" alt="image" class="popup__close" id="popup-close-button">
+        <h3 class="popup__title"></h3>
+        <form class="popup__form" novalidate name="new">
+            <input id="name" type="text" required name="name" class="popup__input popup__input_type_name">
+            <span id ="error-name" class="popup__error-message"></span> 
+            <input id="link" type="text" required name="link" class="popup__input popup__input_type_link-url"> 
+            <span id="error-link" class="popup__error-message"></span> 
+            <button name="submit" class="button popup__button"></button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" id="picture-popup">
+      <div class="popup__picture">
+        <img src="./images/close.svg" alt="image" class="popup__close" id="picture-close-button">
+      </div>
+    </div>
+    <div class="popup" id="avatar-popup">
+      <div class="popup__content">
+        <img src="./images/close.svg" alt="image" class="popup__close" id="avatar-close-button">
+        <h3 class="popup__title" id="popup-avatar-title"></h3>
+        <form class="popup__form" novalidate name="avatar">
+          <input id="avatar-link" type="text" required name="link" class="popup__input popup__input_type_link-url"> 
+          <span id="error-avatar-link" class="popup__error-message"></span> 
+          <button name="submit" class="button popup__button" id="avatar-submit-button"></button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script name="api" src="script/api.js"></script>
+  <script name="create-card" src="script/card.js"></script>
+  <script name="add-card" src="script/cardList.js"></script>
+  <script name="popup" src="script/popup.js"></script>
+  <script name="picture-popup" src="script/addPicturePopup.js"></script>
+  <script name="user-popup" src="script/addUserPopup.js"></script>
+  <script name="form-validator" src="script/formValidator.js"></script>
+  <script name="user-info" src="script/userInfo.js"></script>
+  <script name="user-avatar" src="script/avatar.js"></script>
+  <script name="add-avatar" src="script/addAvatarPopup.js"></script>
+  <script name="index" src="script/index.js"></script>
+  </body>
+</html>
+
