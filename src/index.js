@@ -1,3 +1,5 @@
+import "./style.css";
+
 //основные переменные
 const root = document.querySelector('.root');
 const formPopup = document.getElementById('popup');
