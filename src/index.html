@@ -10,7 +10,7 @@
 <body>
   <div class="root">
     <header class="header root__section">
-      <img src="<%=('./images/logo.svg')%>" alt="mesto logo" class="logo">
+      <img src="<%=require('./images/logo.svg').default%>" alt="mesto logo" class="logo">
     </header>
     <div class="profile root__section">
       <div class="user-info">
@@ -27,7 +27,7 @@
     </div>
     <div class="popup" id="popup">
       <div class="popup__content">
-        <img src="<%=('./images/close.svg')%>" alt="image" class="popup__close" id="popup-close-button">
+        <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="popup-close-button">
         <h3 class="popup__title"></h3>
         <form class="popup__form" novalidate name="new">
             <input id="name" type="text" required name="name" class="popup__input popup__input_type_name">
@@ -40,12 +40,12 @@
     </div>
     <div class="popup" id="picture-popup">
       <div class="popup__picture">
-        <img src="<%=('./images/close.svg')%>" alt="image" class="popup__close" id="picture-close-button">
+        <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="picture-close-button">
       </div>
     </div>
     <div class="popup" id="avatar-popup">
       <div class="popup__content">
-        <img src="<%=('./images/close.svg')%>" alt="image" class="popup__close" id="avatar-close-button">
+        <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="avatar-close-button">
         <h3 class="popup__title" id="popup-avatar-title"></h3>
         <form class="popup__form" novalidate name="avatar">
           <input id="avatar-link" type="text" required name="link" class="popup__input popup__input_type_link-url"> 
