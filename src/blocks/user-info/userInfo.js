@@ -1,5 +1,5 @@
 //класс формы popup для заполнения данных пользователя
-class UserInfo {
+export default class UserInfo {
   constructor(userName, userJob, userAvatar, api) {
     this.userName = userName;
     this.userJob = userJob;

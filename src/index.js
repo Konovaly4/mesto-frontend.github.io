@@ -1,4 +1,14 @@
 import "./style.css";
+import Api from './script/api';
+import Card from './blocks/place-card/card';
+import CardList from './blocks/place-card/cardList';
+import Popup from './blocks/popup/popup';
+import AddPicturePopup from './blocks/popup/addPicturePopup';
+import AddUserPopup from './blocks/popup/addUserPopup';
+import AddAvatarPopup from './blocks/popup/addAvatarPopup';
+import FormValidator from './script/formValidator';
+import UserInfo from './blocks/user-info/userInfo';
+import Avatar from './blocks/user-info/avatar';
 
 //основные переменные
 const root = document.querySelector('.root');
@@ -10,6 +20,8 @@ const userEditButton = document.querySelector('.user-info__edit-button');
 const userName = document.querySelector('.user-info__name');
 const userJob = document.querySelector('.user-info__job');
 const userAvatar = document.querySelector('.user-info__photo');
+
+export {userName, userJob};
 
 //сообщения ошибок
 const errorMesages = {
