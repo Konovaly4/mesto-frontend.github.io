@@ -6,6 +6,7 @@ const path = require('path');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 
+
 module.exports = {
   entry: { main: './src/index.js' },
   output: {
@@ -33,7 +34,6 @@ module.exports = {
           test: /\.(png|jpg|gif|ico|svg)$/,
           use: [
             'file-loader?name=./images/[name].[ext]',
-            //'file-loader',
             {
               loader: 'image-webpack-loader',
               options: {}

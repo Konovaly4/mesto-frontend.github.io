@@ -1,15 +1,14 @@
 export default class Api {
-  constructor (incomingData) {
+  constructor (incomingData, serverUrl) {
     this.ip = incomingData.ip;
     this.id = incomingData.id;
     this.token = incomingData.token;
+    this.serverUrl = serverUrl;
   }
 
 // получение данных пользователя
-
-/* REVIEW Нужно исправить, аватар так же надо подгружать с сервера при загрузке страницы (+) */
 userInfo() {
-    return fetch(`http://${this.ip}/${this.id}/users/me`, {
+    return fetch(`${this.serverUrl}://${this.ip}/${this.id}/users/me`, {
       headers: {
         authorization: `${this.token}`,
         'Content-Type': 'application/json'
@@ -19,7 +18,7 @@ userInfo() {
 
 // отрисовка карточек с сервера
   initialCards() {
-    return fetch(`http://${this.ip}/${this.id}/cards`, {
+    return fetch(`${this.serverUrl}://${this.ip}/${this.id}/cards`, {
       headers: {
         authorization: `${this.token}`,
         'Content-Type': 'application/json'
@@ -29,7 +28,7 @@ userInfo() {
 
 // изменение данных пользователя
   setUserInfo (usrName, usrAbout) {
-      return fetch(`http://${this.ip}/${this.id}/users/me`, {
+      return fetch(`${this.serverUrl}://${this.ip}/${this.id}/users/me`, {
       method: 'PATCH',
       headers: {
         authorization: `${this.token}`,
@@ -44,7 +43,7 @@ userInfo() {
 
 // добавление карточки
   createCard(cardName, cardLink) {
-    return fetch(`http://${this.ip}/${this.id}/cards`, {
+    return fetch(`${this.serverUrl}://${this.ip}/${this.id}/cards`, {
       method: 'POST',
       headers: {
         authorization: `${this.token}`,
@@ -59,7 +58,7 @@ userInfo() {
 
 // удаление карточки
   deleteCard(id) {
-    return fetch(`http://${this.ip}/${this.id}/cards/${id}`, {
+    return fetch(`${this.serverUrl}://${this.ip}/${this.id}/cards/${id}`, {
       method: 'DELETE',
       headers: {
         authorization: `${this.token}`,
@@ -70,7 +69,7 @@ userInfo() {
 
 // лайк
   likeCard(id) {
-    return fetch(`http://${this.ip}/${this.id}/cards/like/${id}`, {
+    return fetch(`${this.serverUrl}://${this.ip}/${this.id}/cards/like/${id}`, {
       method: 'PUT',
       headers: {
         authorization: `${this.token}`,
@@ -81,7 +80,7 @@ userInfo() {
 
 // сброс лайка
   unlikeCard(id) {
-    return fetch(`http://${this.ip}/${this.id}/cards/like/${id}`, {
+    return fetch(`${this.serverUrl}://${this.ip}/${this.id}/cards/like/${id}`, {
       method: 'DELETE',
       headers: {
         authorization: `${this.token}`,
@@ -91,7 +90,7 @@ userInfo() {
   }
 
   setAvatar(avLink) {
-    return fetch(`http://${this.ip}/${this.id}/users/me/avatar`, {
+    return fetch(`${this.serverUrl}://${this.ip}/${this.id}/users/me/avatar`, {
     method: 'PATCH',
     headers: {
       authorization: `${this.token}`,
@@ -104,46 +103,4 @@ userInfo() {
 }
 
 }
-// здравствуйте! не успел сделать информацию по загрузке данных и функцию замены аватара, доделаю на каникулах :-)
-// доделал информацию по загрузке + исправил замечания.
-
-/* REVIEW. Резюме.
-
-В чём достигнут успех.
-1. Данные о пользователе, после редактирования в форме профиля, обновляют данные на странице только после успешного ответа сервера
-и из объекта его ответа.
-2.Сделано дополнительное задание по установке лайка и сохранению информации об этом на сервере.
-3. Предусмотрена обработка всех видов ошибок при аботе с сервером.
-
-Что нужно исправить.
-1. Прежде всего нужно выполнить обязательные требования к заданию 7, иначе невозможно проверить и часть обязательных требований к заданию 9.
-   А именно:
-   а)данные со страницы с информацией о профиле всегда должны находиться в полях формы профиля при её открытии. (+)
-   б)при открытии формы профиля не должно присутствовать никаких сообщений об ошибках и кнопка 'Сохранить' должна быть доступна, (+)
-   поскольку форма при открытии всегда находится в валидном состоянии. (+)
-
-   в) Форма добавления карточки не закрывается после ввода информации и нажатия на кнопку сабмита (тоже исправить). (+)
-
-2.Подгружать аватар при загрузке страницы (подробности в ревью в этом модуле) (+).
-3.Предусмотреть закрытие формы профиля после редактирования и нажатия на кнопку сабмита в нужном месте кода
-(подробности в ревью в этом модуле). (+) - метод переехал в класс userInfo, комментарий я тоже перенес туда.
-
-Что можно улучшить.
-1. Можно отправлять и получать данные с сервера в методах класса Api, а обрабатывать полученные данные
-в методах других классов (подробности в ревью в этом модуле). (+)
-
-
-
-/* REVIEW2. Резюме2.
-
-Все замечания исправлены. Сделаны дополнительные задания по установке лайка и добавлению и удалению карточек.
-
-Сделана полная валидация формы профиля.
-
-Что можно улучшить.
-Подумать об уменьшении повторяемости кода (подробности в модуле userinfo.js)
-
-Задание принято!
-
-*/
 
