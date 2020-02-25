@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
+  <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
 </head>
 <body>
   <div class="root">
     <header class="header root__section">
-      <img src="./images/logo.svg" alt="mesto logo" class="logo">
+      <img src="<%=require('./images/logo.svg').default%>" alt="mesto logo" class="logo">
     </header>
     <div class="profile root__section">
       <div class="user-info">
@@ -27,7 +27,7 @@
     </div>
     <div class="popup" id="popup">
       <div class="popup__content">
-        <img src="./images/close.svg" alt="image" class="popup__close" id="popup-close-button">
+        <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="popup-close-button">
         <h3 class="popup__title"></h3>
         <form class="popup__form" novalidate name="new">
             <input id="name" type="text" required name="name" class="popup__input popup__input_type_name">
@@ -40,12 +40,12 @@
     </div>
     <div class="popup" id="picture-popup">
       <div class="popup__picture">
-        <img src="./images/close.svg" alt="image" class="popup__close" id="picture-close-button">
+        <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="picture-close-button">
       </div>
     </div>
     <div class="popup" id="avatar-popup">
       <div class="popup__content">
-        <img src="./images/close.svg" alt="image" class="popup__close" id="avatar-close-button">
+        <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="avatar-close-button">
         <h3 class="popup__title" id="popup-avatar-title"></h3>
         <form class="popup__form" novalidate name="avatar">
           <input id="avatar-link" type="text" required name="link" class="popup__input popup__input_type_link-url"> 
@@ -55,17 +55,7 @@
       </div>
     </div>
   </div>
-  <script name="api" src="script/api.js"></script>
-  <script name="create-card" src="script/card.js"></script>
-  <script name="add-card" src="script/cardList.js"></script>
-  <script name="popup" src="script/popup.js"></script>
-  <script name="picture-popup" src="script/addPicturePopup.js"></script>
-  <script name="user-popup" src="script/addUserPopup.js"></script>
-  <script name="form-validator" src="script/formValidator.js"></script>
-  <script name="user-info" src="script/userInfo.js"></script>
-  <script name="user-avatar" src="script/avatar.js"></script>
-  <script name="add-avatar" src="script/addAvatarPopup.js"></script>
-  <script name="index" src="script/index.js"></script>
+  <script type="module" name="index" src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
   </body>
 </html>
 

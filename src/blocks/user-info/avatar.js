@@ -1,4 +1,4 @@
-class Avatar {
+export default class Avatar {
   constructor(avatar, api) {
     this.avatar = avatar;
     this.api = api;

@@ -1,4 +1,6 @@
-class AddAvatarPopup extends AddPicturePopup {
+import AddPicturePopup from './addPicturePopup';
+
+export default class AddAvatarPopup extends AddPicturePopup {
 
     popupExt() {
         this.popupElem.form = document.forms.avatar;

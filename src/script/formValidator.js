@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
   constructor (errors) {
     this.errors = errors;
   }
@@ -31,7 +31,7 @@ class FormValidator {
   //проверка введения ссылки
   linkInputValidity(elem, err) {
     elem.classList.remove('popup__error-message_active');
-    let regexp = /http/i;
+    let regexp = /^https?/i;
     let test = regexp.test(elem.value);
     if (!test) {
       elem.classList.add('popup__error-message_active');

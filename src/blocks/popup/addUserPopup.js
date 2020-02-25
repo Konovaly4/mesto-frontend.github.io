@@ -1,4 +1,7 @@
-class AddUserPopup extends AddPicturePopup {
+import AddPicturePopup from './addPicturePopup';
+import {userName, userJob} from '../../index';
+
+export default class AddUserPopup extends AddPicturePopup {
 
   popupExt() {
     super.popupExt();

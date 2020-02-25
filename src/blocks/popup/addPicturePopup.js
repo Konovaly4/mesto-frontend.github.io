@@ -1,4 +1,4 @@
-class AddPicturePopup {
+export default class AddPicturePopup {
   constructor (popupElem, placeHolders, formValidator, action) {
     this.popupElem = popupElem;
     this.placeHolders = placeHolders; 

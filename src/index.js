@@ -1,3 +1,15 @@
+import "./style.css";
+import Api from './script/api';
+import Card from './blocks/place-card/card';
+import CardList from './blocks/place-card/cardList';
+import Popup from './blocks/popup/popup';
+import AddPicturePopup from './blocks/popup/addPicturePopup';
+import AddUserPopup from './blocks/popup/addUserPopup';
+import AddAvatarPopup from './blocks/popup/addAvatarPopup';
+import FormValidator from './script/formValidator';
+import UserInfo from './blocks/user-info/userInfo';
+import Avatar from './blocks/user-info/avatar';
+
 //основные переменные
 const root = document.querySelector('.root');
 const formPopup = document.getElementById('popup');
@@ -8,6 +20,10 @@ const userEditButton = document.querySelector('.user-info__edit-button');
 const userName = document.querySelector('.user-info__name');
 const userJob = document.querySelector('.user-info__job');
 const userAvatar = document.querySelector('.user-info__photo');
+const serverUrl = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+
+
+export {userName, userJob};
 
 //сообщения ошибок
 const errorMesages = {
@@ -44,13 +60,15 @@ const avatarPlaceholders = {
 
 //данные для доступа к серверу
 const serverRequest = {
-  ip: '95.216.175.5',
+  ip: 'praktikum.tk',  //'95.216.175.5'
   id: 'cohort7',
-  token: '3b2e8625-59a6-45e6-8fcd-6a7098993e6c'
+  token: '3b2e8625-59a6-45e6-8fcd-6a7098993e6c',
 }
 
+//console.log(process.env.NODE_ENV, serverUrl);
+
 //объявление запроса к серверу для получения данных пользователя
-const api = new Api(serverRequest);
+const api = new Api(serverRequest, serverUrl);
 
 //класс карточки
 const card = new Card();
