@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="style.3767819b4fa04babac21.css">
+</head>
+<body>
+  <div class="root">
+    <header class="header root__section">
+      <img src="./images/logo.svg" alt="mesto logo" class="logo">
+    </header>
+    <div class="profile root__section">
+      <div class="user-info">
+        <div class="user-info__photo"></div>
+        <div class="user-info__data">
+          <h1 class="user-info__name"></h1>
+          <p class="user-info__job"></p>
+          <button class="user-info__edit-button">Edit</button>
+        </div>
+        <button class="button user-info__button">+</button>
+      </div>
+    </div>
+    <div class="places-list root__section">
+    </div>
+    <div class="popup" id="popup">
+      <div class="popup__content">
+        <img src="./images/close.svg" alt="image" class="popup__close" id="popup-close-button">
+        <h3 class="popup__title"></h3>
+        <form class="popup__form" novalidate name="new">
+            <input id="name" type="text" required name="name" class="popup__input popup__input_type_name">
+            <span id ="error-name" class="popup__error-message"></span> 
+            <input id="link" type="text" required name="link" class="popup__input popup__input_type_link-url"> 
+            <span id="error-link" class="popup__error-message"></span> 
+            <button name="submit" class="button popup__button"></button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" id="picture-popup">
+      <div class="popup__picture">
+        <img src="./images/close.svg" alt="image" class="popup__close" id="picture-close-button">
+      </div>
+    </div>
+    <div class="popup" id="avatar-popup">
+      <div class="popup__content">
+        <img src="./images/close.svg" alt="image" class="popup__close" id="avatar-close-button">
+        <h3 class="popup__title" id="popup-avatar-title"></h3>
+        <form class="popup__form" novalidate name="avatar">
+          <input id="avatar-link" type="text" required name="link" class="popup__input popup__input_type_link-url"> 
+          <span id="error-avatar-link" class="popup__error-message"></span> 
+          <button name="submit" class="button popup__button" id="avatar-submit-button"></button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script type="module" name="index" src="main.13f39e2161a4c35f3665.js"></script>
+  </body>
+</html>
+
