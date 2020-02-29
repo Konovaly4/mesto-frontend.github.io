@@ -1,5 +1,5 @@
 # Место
-[Yandex Praktikum single page testwork for Sprint 11 by Max Konovalov](https://github.com/Konovaly4/Praktikum_sprint_11.github.io)
+[Yandex Praktikum single page testwork for Sprint 11 by Max Konovalov](https://konovaly4.github.io/Praktikum_sprint_11.github.io/)
 
 v0.0.2 - http/https protocols changing added for development or production build
 
