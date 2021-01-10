@@ -1,4 +1,4 @@
-export default class AddPicturePopup {
+export default class AddUserEditPopup {
   constructor (popupElem, placeHolders, formValidator, action) {
     this.popupElem = popupElem;
     this.placeHolders = placeHolders; 
@@ -10,14 +10,20 @@ export default class AddPicturePopup {
 
   //добавление элементов popup
   popupExt() {
-    this.form = document.forms.new;
-    this.head = document.querySelector('.popup__title')
+    this.form = this.popupelem.forms.user-update;
+    this.head = this.popupelem.querySelector('.popup__title')
     this.name = this.form.elements.name;
-    this.link = this.form.elements.link;
-    this.button = document.querySelector('.popup__button');
-    this.closeButton = document.getElementById('popup-close-button')
-    this.nameErrMessage = document.getElementById('error-name');
-    this.linkErrMessage = document.getElementById('error-link');
+    this.about = this.form.elements.about;
+    this.avatar = this.form.elements.avatar;
+    this.email = this.form.elements.email;
+    this.password = this.form.elements.password;
+    this.button = this.popupelem.querySelector('#user-update-submit');
+    this.closeButton = this.popupelem.querySelector('#user-update-close-button')
+    this.nameErrMessage = this.popupelem.querySelector('#error-user-update-name');
+    this.nameErrMessage = this.popupelem.querySelector('#error-user-update-about');
+    this.nameErrMessage = this.popupelem.querySelector('#error-user-update-avatar');
+    this.nameErrMessage = this.popupelem.querySelector('#error-user-update-email');
+    this.linkErrMessage = this.popupelem.querySelector('#error-user-update-password');
   }
 
   // деактивация кнопки
@@ -47,7 +53,10 @@ export default class AddPicturePopup {
     this.buttonDisactive();
     this.head.textContent = this.placeHolders.header;
     this.name.setAttribute('placeholder', this.placeHolders.name);
-    this.link.setAttribute('placeholder', this.placeHolders.link);
+    this.about.setAttribute('placeholder', this.placeHolders.about);
+    this.avatar.setAttribute('placeholder', this.placeHolders.avatar);
+    this.email.setAttribute('placeholder', this.placeHolders.email);
+    this.password.setAttribute('placeholder', this.placeHolders.password);
     this.button.textContent = this.placeHolders.button;
   }
 
@@ -55,9 +64,7 @@ export default class AddPicturePopup {
   popupOpen() {
     this.open();
     this.setSubmitButtonState();
-    this.button.classList.add('popup__button_plus');
-    this.link.setAttribute('place', 'link');
-    this.formValidator.errReset(this.nameErrMessage);
+    this.formValidator.errReset(this.emailErrMessage);
     this.formValidator.errReset(this.linkErrMessage);
   }
 
@@ -72,24 +79,56 @@ export default class AddPicturePopup {
     return this.formValidator.inputValidity(this.name);
   }
 
-  //валидация поля link
-  formLinkValidate() {
+  //валидация поля about
+  formAboutValidate() {
     this.popupExt();
-    return this.formValidator.inputValidity(this.link);
+    return this.formValidator.inputValidity(this.about);
+  }
+
+  //валидация поля avatar
+  formAvatarValidate() {
+    this.popupExt();
+    return this.formValidator.inputValidity(this.avatar);
   } 
+
+  //валидация поля email
+  formEmailValidate() {
+    this.popupExt();
+    return this.formValidator.inputValidity(this.email);
+  }
+
+  //валидация поля email
+  formPasswordValidate() {
+    this.popupExt();
+    return this.formValidator.inputValidity(this.password);
+  }
 
   //установка активации кнопки
   setSubmitButtonState() {
     this.buttonDisactive();
-    if (this.formNameValidate() && this.formLinkValidate()) {
+    if (
+      this.formNameValidate() && 
+      this.formAboutValidate() &&
+      formAvatarValidate() &&
+      formEmailValidate() &&
+      formPasswordValidate()
+      ) {
       this.buttonActive();
     }
   }
   
   //добавление карточки по клику на submit
-  function(event) {
+  onSubmit(event) {
     event.preventDefault();
-    this.action.createCard(this.name.value, this.link.value, this.openClose.bind(this), this.picLoadNote.bind(this));
+    this.action.createUser(
+      this.name.value, 
+      this.about.value, 
+      this.avatar.value, 
+      this.email.value, 
+      this.password.value, 
+      this.openClose.bind(this), 
+      this.picLoadNote.bind(this)
+      );
     return;
   }
   //установка слушателей событий
@@ -97,6 +136,6 @@ export default class AddPicturePopup {
     this.popupExt();
     this.closeButton.onclick = this.openClose.bind(this);
     this.form.addEventListener('input', this.setSubmitButtonState.bind(this));
-    this.button.onclick = this.function.bind(this);
+    this.button.onclick = this.onSubmit.bind(this);
   }
 }

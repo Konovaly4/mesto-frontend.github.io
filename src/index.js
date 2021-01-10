@@ -9,12 +9,14 @@ import AddAvatarPopup from './blocks/popup/addAvatarPopup';
 import FormValidator from './script/formValidator';
 import UserInfo from './blocks/user-info/userInfo';
 import Avatar from './blocks/user-info/avatar';
+import Authorization from "./script/authorization";
 
 //основные переменные
 const root = document.querySelector('.root');
-const formPopup = document.getElementById('popup');
-const picturePopup = document.getElementById('picture-popup');
-const avatarPopup = document.getElementById('avatar-popup');
+const formPopup = document.querySelector('#popup');
+const picturePopup = document.querySelector('#picture-popup');
+const avatarPopup = document.querySelector('#avatar-popup');
+const userEditPopup = document.querySelector('#user-update-popup')
 const addButton = document.querySelector('.user-info__button');
 const userEditButton = document.querySelector('.user-info__edit-button');
 const userName = document.querySelector('.user-info__name');
@@ -70,6 +72,9 @@ const serverRequest = {
 //объявление запроса к серверу для получения данных пользователя
 const api = new Api(serverRequest, serverUrl);
 
+// объявление класса авторизации
+const auth = new Authorization();
+
 //класс карточки
 const card = new Card();
 
@@ -91,29 +96,38 @@ userInfo.userInfo();
 //новая форма смены аватара
 const avatar = new Avatar(userAvatar, api);
 
-//слушатели событий
-//слушатель кнопки добавления карточки
-addButton.addEventListener('click', function () {
+// функция открытия попапа карточки
+const setPicturePopup = () => {
   const addPicturePopup = new AddPicturePopup(formPopup, placePlaceholders, formValidator, cardList);
   addPicturePopup.popupOpen();
   addPicturePopup.setEventListeners();
-});
+}
 
-//слушатель кнопки изменения данных профиля
-userEditButton.addEventListener('click', function () {
+// функция открытия попапа изменения пользователя
+const setUserPopup = () => {
   const addUserPopup = new AddUserPopup(formPopup, userPlaceholders, formValidator, userInfo);
   addUserPopup.popupOpen();
   addUserPopup.setSubmitButtonState();
   addUserPopup.setEventListeners();
-});
+}
 
-//слушатель аватара
-userAvatar.addEventListener('click', function() {
+// функция открытия попапа обновления аватара
+const setUserAvatarPopup = () => {
   const addAvatarPopup = new AddAvatarPopup(avatarPopup, avatarPlaceholders, formValidator, avatar);
   addAvatarPopup.popupOpen();
   addAvatarPopup.setSubmitButtonState();
   addAvatarPopup.setEventListeners();
-})
+}
+
+//слушатели событий
+//слушатель кнопки добавления карточки
+addButton.addEventListener('click', setPicturePopup);
+
+//слушатель кнопки изменения данных профиля
+userEditButton.addEventListener('click', setUserPopup);
+
+//слушатель аватара
+userAvatar.addEventListener('click', setUserAvatarPopup);
 
 // слушатель клика на карточку для увеличения картинки
 root.addEventListener('click', function () {

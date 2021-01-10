@@ -38,6 +38,25 @@
         </form>
       </div>
     </div>
+    <div class="popup" id="user-update-popup">
+      <div class="popup__content">
+        <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="user-update-close-button">
+        <h3 class="popup__title"></h3>
+        <form class="ser-update-popup__form" novalidate name="user-update">
+            <input id="user-update-name" type="text" required name="user-update-name" class="popup__input popup__input_type_name">
+            <span id ="error-user-update-name" class="popup__error-message"></span> 
+            <input id="user-update-about" type="text" required name="user-update-about" class="popup__input popup__input_type_name">
+            <span id="error-user-update-about" class="popup__error-message"></span> 
+            <input id="user-update-avatar" type="text" required name="user-update-avatar" class="popup__input popup__input_type_link-url"> 
+            <span id="error-user-update-avatar" class="popup__error-message"></span> 
+            <input id="user-update-email" type="email" required name="user-update-email" class="popup__input popup__input_type_name">
+            <span id ="error-user-update-email" class="popup__error-message"></span> 
+            <input id="user-update-password" type="password" required name="user-update-password" class="popup__input popup__input_type_name">
+            <span id ="error-user-update-password" class="popup__error-message"></span> 
+            <button id="user-update-submit" class="button popup__button"></button>
+        </form>
+      </div>
+    </div>
     <div class="popup" id="picture-popup">
       <div class="popup__picture">
         <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="picture-close-button">
