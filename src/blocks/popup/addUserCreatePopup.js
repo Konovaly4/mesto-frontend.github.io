@@ -1,4 +1,4 @@
-export default class AddUserEditPopup {
+export default class AddUserCreatePopup {
   constructor (popupElem, placeHolders, formValidator, action) {
     this.popupElem = popupElem;
     this.placeHolders = placeHolders; 
@@ -17,13 +17,13 @@ export default class AddUserEditPopup {
     this.avatar = this.form.elements.avatar;
     this.email = this.form.elements.email;
     this.password = this.form.elements.password;
-    this.button = this.popupelem.querySelector('#user-update-submit');
-    this.closeButton = this.popupelem.querySelector('#user-update-close-button')
-    this.nameErrMessage = this.popupelem.querySelector('#error-user-update-name');
-    this.nameErrMessage = this.popupelem.querySelector('#error-user-update-about');
-    this.nameErrMessage = this.popupelem.querySelector('#error-user-update-avatar');
-    this.nameErrMessage = this.popupelem.querySelector('#error-user-update-email');
-    this.linkErrMessage = this.popupelem.querySelector('#error-user-update-password');
+    this.button = this.popupelem.querySelector('#user-create-submit');
+    this.closeButton = this.popupelem.querySelector('#user-create-close-button')
+    this.nameErrMessage = this.popupelem.querySelector('#error-user-create-name');
+    this.nameErrMessage = this.popupelem.querySelector('#error-user-create-about');
+    this.nameErrMessage = this.popupelem.querySelector('#error-user-create-avatar');
+    this.nameErrMessage = this.popupelem.querySelector('#error-user-create-email');
+    this.linkErrMessage = this.popupelem.querySelector('#error-user-create-password');
   }
 
   // деактивация кнопки
@@ -53,7 +53,7 @@ export default class AddUserEditPopup {
     this.buttonDisactive();
     this.head.textContent = this.placeHolders.header;
     this.name.setAttribute('placeholder', this.placeHolders.name);
-    this.about.setAttribute('placeholder', this.placeHolders.about);
+    this.about.setAttribute('placeholder', this.placeHolders.link);
     this.avatar.setAttribute('placeholder', this.placeHolders.avatar);
     this.email.setAttribute('placeholder', this.placeHolders.email);
     this.password.setAttribute('placeholder', this.placeHolders.password);
