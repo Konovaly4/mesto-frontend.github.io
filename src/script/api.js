@@ -4,7 +4,7 @@ export default class Api {
   }
 
   // создание пользователя
-  createUser (userEmail, userPassword, userName) {
+  createUser (userName, userAbout, userAvatar, userEmail, userPassword) {
     return fetch(`${this.serverData}/signup`, {
       redirect: 'follow',
       method: 'POST',

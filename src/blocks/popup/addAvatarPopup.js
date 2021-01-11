@@ -46,7 +46,7 @@ export default class AddAvatarPopup extends AddPicturePopup {
 
     formLinkValidate() {
         this.popupExt();
-        return this.formValidator.inputValidity(this.link);
+        return this.formValidator.inputValidity(this.popupElem, this.link);
     }
     
     setSubmitButtonState() {

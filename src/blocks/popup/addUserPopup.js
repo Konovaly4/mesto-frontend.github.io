@@ -48,13 +48,13 @@ export default class AddUserPopup extends AddPicturePopup {
   //валидация поля name
   formNameValidate() {
     this.popupExt();
-    return this.formValidator.inputValidity(this.name);
+    return this.formValidator.inputValidity(this.popupElem, this.name);
   }
 
   //валидация поля link
   formLinkValidate() {
     this.popupExt();
-    return this.formValidator.inputValidity(this.link);
+    return this.formValidator.inputValidity(this.popupElem, this.link);
   } 
 
   setSubmitButtonState() {

@@ -17,13 +17,15 @@ const root = document.querySelector('.root');
 const formPopup = document.querySelector('#popup');
 const picturePopup = document.querySelector('#picture-popup');
 const avatarPopup = document.querySelector('#avatar-popup');
-const userCreatePopup = document.querySelector('#user-create-popup')
+const userCreatePopup = document.querySelector('#create-popup')
 const addButton = document.querySelector('.user-info__button');
-const userEditButton = document.querySelector('.user-info__edit-button');
+const editButton = document.querySelector('.user-info__edit-button');
+const createButton = document.querySelector('.user-info__create-button');
+const loginButton = document.querySelector('.user-info__login-button');
 const userName = document.querySelector('.user-info__name');
 const userJob = document.querySelector('.user-info__job');
 const userAvatar = document.querySelector('.user-info__photo');
-const serverUrl = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://api.my-mesto.gq';
 
 
 export {userName, userJob};
@@ -32,7 +34,8 @@ export {userName, userJob};
 const errorMesages = {
   requiredErr: 'Это обязательное поле',
   lengtErr: 'Должно быть от 2 до 30 символов',
-  linkErr: 'Здесь должна быть ссылка'
+  linkErr: 'Здесь должна быть ссылка',
+  emailErr: 'формат email должен быть валидным'
 }
 
 // фразы-плейсхолдеры popup Новое Место
@@ -64,15 +67,10 @@ const avatarPlaceholders = {
   buttonOnLoad: 'Загрузка'
 }
 
-//данные для доступа к серверу
-const serverRequest = {
-  serverName: 'https://api.my-mesto.gq'
-}
-
 //console.log(process.env.NODE_ENV, serverUrl);
 
 //объявление запроса к серверу для получения данных пользователя
-const api = new Api(serverRequest.serverName);
+const api = new Api(serverUrl);
 
 // объявление класса авторизации
 const auth = new Authorization();
@@ -123,7 +121,10 @@ const setUserAvatarPopup = () => {
 
 // функция открытия попапа создания пользователя
 const setUserCreatePopup = () => {
-  const addUserCreatePopup = new AddUserCreatePopup(userCreatePopup, userPlaceholders, formValidator, )
+  const addUserCreatePopup = new AddUserCreatePopup(userCreatePopup, userPlaceholders, formValidator, api);
+  addUserCreatePopup.popupOpen();
+  addUserCreatePopup.setSubmitButtonState();
+  addUserCreatePopup.setEventListeners();
 }
 
 //слушатели событий
@@ -131,7 +132,10 @@ const setUserCreatePopup = () => {
 addButton.addEventListener('click', setPicturePopup);
 
 //слушатель кнопки изменения данных профиля
-userEditButton.addEventListener('click', setUserPopup);
+editButton.addEventListener('click', setUserPopup);
+
+// слушатель кнопки создания профиля
+createButton.addEventListener('click', setUserCreatePopup);
 
 //слушатель аватара
 userAvatar.addEventListener('click', setUserAvatarPopup);

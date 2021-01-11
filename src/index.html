@@ -19,6 +19,8 @@
           <h1 class="user-info__name"></h1>
           <p class="user-info__job"></p>
           <button class="user-info__edit-button">Edit</button>
+          <button class="user-info__create-button">Create</button>
+          <button class="user-info__login-button">Login</button>
         </div>
         <button class="button user-info__button">+</button>
       </div>
@@ -38,22 +40,22 @@
         </form>
       </div>
     </div>
-    <div class="popup" id="user-create-popup">
+    <div class="popup" id="create-popup">
       <div class="popup__content">
-        <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="user-update-close-button">
+        <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="close-button">
         <h3 class="popup__title"></h3>
-        <form class="user-create-popup__form" novalidate name="user-create">
-            <input id="user-create-name" type="text" required name="user-create-name" class="popup__input popup__input_type_name">
-            <span id ="error-user-create-name" class="popup__error-message"></span> 
-            <input id="user-create-about" type="text" required name="user-create-about" class="popup__input popup__input_type_name">
-            <span id="error-user-create-about" class="popup__error-message"></span> 
-            <input id="user-create-avatar" type="text" required name="user-create-avatar" class="popup__input popup__input_type_link-url"> 
-            <span id="error-user-create-avatar" class="popup__error-message"></span> 
-            <input id="user-create-email" type="email" required name="user-create-email" class="popup__input popup__input_type_name">
-            <span id ="error-user-create-email" class="popup__error-message"></span> 
-            <input id="user-create-password" type="password" required name="user-create-password" class="popup__input popup__input_type_name">
-            <span id ="error-user-create-password" class="popup__error-message"></span> 
-            <button id="user-create-submit" class="button popup__button"></button>
+        <form class="popup__form" novalidate name="create">
+            <input id="name" type="text" required name="name" class="popup__input popup__input_type_name">
+            <span id ="error-name" class="popup__error-message"></span> 
+            <input id="about" type="text" required name="about" class="popup__input popup__input_type_name">
+            <span id="error-about" class="popup__error-message"></span> 
+            <input id="avatar" type="text" required name="avatar" class="popup__input popup__input_type_link-url" place="link"> 
+            <span id="error-avatar" class="popup__error-message"></span> 
+            <input id="email" type="text" required name="email" class="popup__input popup__input_type_name" email="email">
+            <span id ="error-email" class="popup__error-message"></span> 
+            <input id="password" type="password" required name="password" class="popup__input popup__input_type_name">
+            <span id ="error-password" class="popup__error-message"></span> 
+            <button id="submit" class="button popup__button"></button>
         </form>
       </div>
     </div>

@@ -57,7 +57,7 @@ export default class FormValidator {
     let test = regexp.test(elem.value);
     if (!test) {
       elem.classList.add('popup__error-message_active');
-      err.textContent = this.errors.linkErr;
+      err.textContent = this.errors.emailErr;
       return false;
     } else return true;
   }
@@ -66,14 +66,16 @@ export default class FormValidator {
   toggValidity(elem, err) {
     if (elem.hasAttribute('place')) {
       return this.linkInputValidity(elem, err);
+    } else if (elem.hasAttribute('email')) {
+      return this.emailInputValidity(elem, err);
     } else {
       return this.lengthInputValidity(elem, err);
     }
   }
 
   //общая проверка
-  inputValidity(inp) {
-    let errorMessage = document.querySelector(`#error-${inp.id}`);
+  inputValidity(popup,inp) {
+    let errorMessage = popup.querySelector(`#error-${inp.id}`);
     this.errReset(errorMessage);
     return (this.checkInputValidity(inp, errorMessage) && this.toggValidity(inp, errorMessage));
     }

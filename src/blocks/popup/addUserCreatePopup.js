@@ -1,29 +1,29 @@
 export default class AddUserCreatePopup {
-  constructor (popupElem, placeHolders, formValidator, action) {
+  constructor (popupElem, placeHolders, formValidator, api) {
     this.popupElem = popupElem;
     this.placeHolders = placeHolders; 
     //передаю инициализированный класс валидации как параметр
     this.formValidator = formValidator;
     //функции по добавлению данных
-    this.action = action;
+    this.api = api;
   }
 
   //добавление элементов popup
   popupExt() {
-    this.form = this.popupelem.forms.user-update;
-    this.head = this.popupelem.querySelector('.popup__title')
+    this.form = document.forms.create;
+    this.head = this.popupElem.querySelector('.popup__title')
     this.name = this.form.elements.name;
     this.about = this.form.elements.about;
     this.avatar = this.form.elements.avatar;
     this.email = this.form.elements.email;
     this.password = this.form.elements.password;
-    this.button = this.popupelem.querySelector('#user-create-submit');
-    this.closeButton = this.popupelem.querySelector('#user-create-close-button')
-    this.nameErrMessage = this.popupelem.querySelector('#error-user-create-name');
-    this.nameErrMessage = this.popupelem.querySelector('#error-user-create-about');
-    this.nameErrMessage = this.popupelem.querySelector('#error-user-create-avatar');
-    this.nameErrMessage = this.popupelem.querySelector('#error-user-create-email');
-    this.linkErrMessage = this.popupelem.querySelector('#error-user-create-password');
+    this.button = this.popupElem.querySelector('#submit');
+    this.closeButton = this.popupElem.querySelector('#close-button')
+    this.nameErrMessage = this.popupElem.querySelector('#error-name');
+    this.aboutErrMessage = this.popupElem.querySelector('#error-about');
+    this.avatarErrMessage = this.popupElem.querySelector('#error-avatar');
+    this.emailErrMessage = this.popupElem.querySelector('#error-email');
+    this.passwordErrMessage = this.popupElem.querySelector('#error-password');
   }
 
   // деактивация кнопки
@@ -64,43 +64,41 @@ export default class AddUserCreatePopup {
   popupOpen() {
     this.open();
     this.setSubmitButtonState();
+    this.formValidator.errReset(this.nameErrMessage);
+    this.formValidator.errReset(this.aboutErrMessage);
+    this.formValidator.errReset(this.avatarErrMessage);
     this.formValidator.errReset(this.emailErrMessage);
-    this.formValidator.errReset(this.linkErrMessage);
-  }
-
-  //сообщение о загрузке
-  picLoadNote() {
-    this.button.textContent = this.placeHolders.buttonOnLoad;
+    this.formValidator.errReset(this.passwordErrMessage);
   }
 
   //валидация поля name
   formNameValidate() {
     this.popupExt();
-    return this.formValidator.inputValidity(this.name);
+    return this.formValidator.inputValidity(this.popupElem, this.name);
   }
 
   //валидация поля about
   formAboutValidate() {
     this.popupExt();
-    return this.formValidator.inputValidity(this.about);
+    return this.formValidator.inputValidity(this.popupElem, this.about);
   }
 
   //валидация поля avatar
   formAvatarValidate() {
     this.popupExt();
-    return this.formValidator.inputValidity(this.avatar);
+    return this.formValidator.inputValidity(this.popupElem, this.avatar);
   } 
 
   //валидация поля email
   formEmailValidate() {
     this.popupExt();
-    return this.formValidator.inputValidity(this.email);
+    return this.formValidator.inputValidity(this.popupElem, this.email);
   }
 
   //валидация поля email
   formPasswordValidate() {
     this.popupExt();
-    return this.formValidator.inputValidity(this.password);
+    return this.formValidator.inputValidity(this.popupElem, this.password);
   }
 
   //установка активации кнопки
@@ -109,9 +107,9 @@ export default class AddUserCreatePopup {
     if (
       this.formNameValidate() && 
       this.formAboutValidate() &&
-      formAvatarValidate() &&
-      formEmailValidate() &&
-      formPasswordValidate()
+      this.formAvatarValidate() &&
+      this.formEmailValidate() &&
+      this.formPasswordValidate()
       ) {
       this.buttonActive();
     }
@@ -120,15 +118,23 @@ export default class AddUserCreatePopup {
   //добавление карточки по клику на submit
   onSubmit(event) {
     event.preventDefault();
-    this.action.createUser(
+    this.button.textContent = this.placeHolders.buttonOnLoad;
+    this.api.createUser(
       this.name.value, 
       this.about.value, 
       this.avatar.value, 
       this.email.value, 
       this.password.value, 
-      this.openClose.bind(this), 
-      this.picLoadNote.bind(this)
-      );
+      )
+    .then(res => {
+      this.name.value = res.name, 
+      this.about.value = res.about, 
+      this.avatar.value = res.avatar, 
+      this.email.value = res.email, 
+      this.password.value = res.password
+    })
+    this.button.textContent = this.placeHolders.button;
+    this.openClose();
     return;
   }
   //установка слушателей событий
