@@ -6,15 +6,18 @@ import Popup from './blocks/popup/popup';
 import AddPicturePopup from './blocks/popup/addPicturePopup';
 import AddUserPopup from './blocks/popup/addUserPopup';
 import AddAvatarPopup from './blocks/popup/addAvatarPopup';
+import AddUserCreatePopup from './blocks/popup/addUserCreatePopup';
 import FormValidator from './script/formValidator';
 import UserInfo from './blocks/user-info/userInfo';
 import Avatar from './blocks/user-info/avatar';
+import Authorization from "./script/authorization";
 
 //основные переменные
 const root = document.querySelector('.root');
-const formPopup = document.getElementById('popup');
-const picturePopup = document.getElementById('picture-popup');
-const avatarPopup = document.getElementById('avatar-popup');
+const formPopup = document.querySelector('#popup');
+const picturePopup = document.querySelector('#picture-popup');
+const avatarPopup = document.querySelector('#avatar-popup');
+const userCreatePopup = document.querySelector('#user-create-popup')
 const addButton = document.querySelector('.user-info__button');
 const userEditButton = document.querySelector('.user-info__edit-button');
 const userName = document.querySelector('.user-info__name');
@@ -46,6 +49,9 @@ const userPlaceholders = {
   header: 'Редактировать профиль',
   name: 'Имя',
   link: 'О себе',
+  avatar: 'Ссылка на аватар',
+  email: 'Email',
+  password: 'Пароль',
   button: 'Сохранить',
   buttonOnLoad: 'Загрузка'
 }
@@ -60,15 +66,16 @@ const avatarPlaceholders = {
 
 //данные для доступа к серверу
 const serverRequest = {
-  ip: 'praktikum.tk',  //'95.216.175.5'
-  id: 'cohort7',
-  token: '3b2e8625-59a6-45e6-8fcd-6a7098993e6c',
+  serverName: 'https://api.my-mesto.gq'
 }
 
 //console.log(process.env.NODE_ENV, serverUrl);
 
 //объявление запроса к серверу для получения данных пользователя
-const api = new Api(serverRequest, serverUrl);
+const api = new Api(serverRequest.serverName);
+
+// объявление класса авторизации
+const auth = new Authorization();
 
 //класс карточки
 const card = new Card();
@@ -91,29 +98,43 @@ userInfo.userInfo();
 //новая форма смены аватара
 const avatar = new Avatar(userAvatar, api);
 
-//слушатели событий
-//слушатель кнопки добавления карточки
-addButton.addEventListener('click', function () {
+// функция открытия попапа карточки
+const setPicturePopup = () => {
   const addPicturePopup = new AddPicturePopup(formPopup, placePlaceholders, formValidator, cardList);
   addPicturePopup.popupOpen();
   addPicturePopup.setEventListeners();
-});
+}
 
-//слушатель кнопки изменения данных профиля
-userEditButton.addEventListener('click', function () {
+// функция открытия попапа изменения пользователя
+const setUserPopup = () => {
   const addUserPopup = new AddUserPopup(formPopup, userPlaceholders, formValidator, userInfo);
   addUserPopup.popupOpen();
   addUserPopup.setSubmitButtonState();
   addUserPopup.setEventListeners();
-});
+}
 
-//слушатель аватара
-userAvatar.addEventListener('click', function() {
+// функция открытия попапа обновления аватара
+const setUserAvatarPopup = () => {
   const addAvatarPopup = new AddAvatarPopup(avatarPopup, avatarPlaceholders, formValidator, avatar);
   addAvatarPopup.popupOpen();
   addAvatarPopup.setSubmitButtonState();
   addAvatarPopup.setEventListeners();
-})
+}
+
+// функция открытия попапа создания пользователя
+const setUserCreatePopup = () => {
+  const addUserCreatePopup = new AddUserCreatePopup(userCreatePopup, userPlaceholders, formValidator, )
+}
+
+//слушатели событий
+//слушатель кнопки добавления карточки
+addButton.addEventListener('click', setPicturePopup);
+
+//слушатель кнопки изменения данных профиля
+userEditButton.addEventListener('click', setUserPopup);
+
+//слушатель аватара
+userAvatar.addEventListener('click', setUserAvatarPopup);
 
 // слушатель клика на карточку для увеличения картинки
 root.addEventListener('click', function () {

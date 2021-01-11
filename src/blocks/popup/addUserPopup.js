@@ -26,35 +26,35 @@ export default class AddUserPopup extends AddPicturePopup {
   //добавление данных пользователя при открытии формы
   open() {
     super.open();
-    this.popupElem.name.value = userName.textContent;
-    this.popupElem.link.value = userJob.textContent;
+    this.name.value = userName.textContent;
+    this.link.value = userJob.textContent;
   }
 
   //открытие формы
   popupOpen() {
     this.open();
     this.setSubmitButtonState();
-    this.popupElem.button.classList.remove('popup__button_plus');
-    this.popupElem.link.removeAttribute('place', 'link');
-    this.formValidator.errReset(this.popupElem.nameErrMessage);
-    this.formValidator.errReset(this.popupElem.linkErrMessage);
+    this.button.classList.remove('popup__button_plus');
+    this.link.removeAttribute('place', 'link');
+    this.formValidator.errReset(this.nameErrMessage);
+    this.formValidator.errReset(this.linkErrMessage);
   }
 
   //сообщение о загрузке
   usrLoadNote() {
-    this.popupElem.button.textContent = this.placeHolders.buttonOnLoad;
+    this.button.textContent = this.placeHolders.buttonOnLoad;
   }
 
   //валидация поля name
   formNameValidate() {
     this.popupExt();
-    return this.formValidator.inputValidity(this.popupElem.name);
+    return this.formValidator.inputValidity(this.name);
   }
 
   //валидация поля link
   formLinkValidate() {
     this.popupExt();
-    return this.formValidator.inputValidity(this.popupElem.link);
+    return this.formValidator.inputValidity(this.link);
   } 
 
   setSubmitButtonState() {
@@ -63,15 +63,15 @@ export default class AddUserPopup extends AddPicturePopup {
 
   function(event) {
     event.preventDefault();
-      this.action.setUserInfo(this.popupElem.name.value, this.popupElem.link.value, this.openClose.bind(this), this.usrLoadNote.bind(this));
+      this.action.setUserInfo(this.name.value, this.link.value, this.openClose.bind(this), this.usrLoadNote.bind(this));
     return;
   }
 
   //установка слушателей
   setEventListeners() {
     this.popupExt();
-    this.popupElem.closeButton.onclick = this.openClose.bind(this);
-    this.popupElem.form.addEventListener('input', this.setSubmitButtonState.bind(this));
-    this.popupElem.button.onclick = this.function.bind(this);
+    this.closeButton.onclick = this.openClose.bind(this);
+    this.form.addEventListener('input', this.setSubmitButtonState.bind(this));
+    this.button.onclick = this.function.bind(this);
   }
 }

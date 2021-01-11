@@ -38,6 +38,25 @@
         </form>
       </div>
     </div>
+    <div class="popup" id="user-create-popup">
+      <div class="popup__content">
+        <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="user-update-close-button">
+        <h3 class="popup__title"></h3>
+        <form class="user-create-popup__form" novalidate name="user-create">
+            <input id="user-create-name" type="text" required name="user-create-name" class="popup__input popup__input_type_name">
+            <span id ="error-user-create-name" class="popup__error-message"></span> 
+            <input id="user-create-about" type="text" required name="user-create-about" class="popup__input popup__input_type_name">
+            <span id="error-user-create-about" class="popup__error-message"></span> 
+            <input id="user-create-avatar" type="text" required name="user-create-avatar" class="popup__input popup__input_type_link-url"> 
+            <span id="error-user-create-avatar" class="popup__error-message"></span> 
+            <input id="user-create-email" type="email" required name="user-create-email" class="popup__input popup__input_type_name">
+            <span id ="error-user-create-email" class="popup__error-message"></span> 
+            <input id="user-create-password" type="password" required name="user-create-password" class="popup__input popup__input_type_name">
+            <span id ="error-user-create-password" class="popup__error-message"></span> 
+            <button id="user-create-submit" class="button popup__button"></button>
+        </form>
+      </div>
+    </div>
     <div class="popup" id="picture-popup">
       <div class="popup__picture">
         <img src="<%=require('./images/close.svg').default%>" alt="image" class="popup__close" id="picture-close-button">
