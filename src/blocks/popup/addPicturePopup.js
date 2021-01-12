@@ -11,13 +11,13 @@ export default class AddPicturePopup {
   //добавление элементов popup
   popupExt() {
     this.form = document.forms.new;
-    this.head = document.querySelector('.popup__title')
+    this.head = this.popupElem.querySelector('.popup__title')
     this.name = this.form.elements.name;
     this.link = this.form.elements.link;
-    this.button = document.querySelector('.popup__button');
-    this.closeButton = document.getElementById('popup-close-button')
-    this.nameErrMessage = document.getElementById('error-name');
-    this.linkErrMessage = document.getElementById('error-link');
+    this.button = this.popupElem.querySelector('.popup__button');
+    this.closeButton = this.popupElem.querySelector('#popup-close-button')
+    this.nameErrMessage = this.popupElem.querySelector('#error-name');
+    this.linkErrMessage = this.popupElem.querySelector('#error-link');
   }
 
   // деактивация кнопки
@@ -56,6 +56,7 @@ export default class AddPicturePopup {
     this.open();
     this.setSubmitButtonState();
     this.button.classList.add('popup__button_plus');
+    this.name.removeAttribute('email', 'email');
     this.link.setAttribute('place', 'link');
     this.formValidator.errReset(this.nameErrMessage);
     this.formValidator.errReset(this.linkErrMessage);

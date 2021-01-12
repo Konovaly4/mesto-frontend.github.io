@@ -7,6 +7,7 @@ import AddPicturePopup from './blocks/popup/addPicturePopup';
 import AddUserPopup from './blocks/popup/addUserPopup';
 import AddAvatarPopup from './blocks/popup/addAvatarPopup';
 import AddUserCreatePopup from './blocks/popup/addUserCreatePopup';
+import AddLoginPopup from './blocks/popup/addLoginPopup';
 import FormValidator from './script/formValidator';
 import UserInfo from './blocks/user-info/userInfo';
 import Avatar from './blocks/user-info/avatar';
@@ -51,7 +52,13 @@ const placePlaceholders = {
 const userPlaceholders = {
   header: 'Редактировать профиль',
   name: 'Имя',
-  link: 'О себе',
+}
+
+// фразы-плейсхолдеры popup регистрации
+const userCreatePlaceholders = {
+  header: 'РРегистрация',
+  name: 'Имя',
+  about: 'О себе',
   avatar: 'Ссылка на аватар',
   email: 'Email',
   password: 'Пароль',
@@ -67,7 +74,14 @@ const avatarPlaceholders = {
   buttonOnLoad: 'Загрузка'
 }
 
-//console.log(process.env.NODE_ENV, serverUrl);
+//фразы-плейсхолдеры для попапа логина
+const loginPlaceHolders = {
+  header: 'Вход',
+  email: 'Введите email',
+  password: 'Введите пароль',
+  button: 'Сохранить',
+  buttonOnLoad: 'Загрузка'
+}
 
 //объявление запроса к серверу для получения данных пользователя
 const api = new Api(serverUrl);
@@ -121,10 +135,17 @@ const setUserAvatarPopup = () => {
 
 // функция открытия попапа создания пользователя
 const setUserCreatePopup = () => {
-  const addUserCreatePopup = new AddUserCreatePopup(userCreatePopup, userPlaceholders, formValidator, api);
+  const addUserCreatePopup = new AddUserCreatePopup(userCreatePopup, userCreatePlaceholders, formValidator, api);
   addUserCreatePopup.popupOpen();
   addUserCreatePopup.setSubmitButtonState();
   addUserCreatePopup.setEventListeners();
+}
+
+// функция открытия попапа логина
+const setLoginPopup = () => {
+  const addLoginPopup = new AddLoginPopup(formPopup, loginPlaceHolders, formValidator, api);
+  addLoginPopup.popupOpen();
+  addLoginPopup.setEventListeners();
 }
 
 //слушатели событий
@@ -136,6 +157,9 @@ editButton.addEventListener('click', setUserPopup);
 
 // слушатель кнопки создания профиля
 createButton.addEventListener('click', setUserCreatePopup);
+
+// слушатель кнопки логина
+loginButton.addEventListener('click', setLoginPopup);
 
 //слушатель аватара
 userAvatar.addEventListener('click', setUserAvatarPopup);

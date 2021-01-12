@@ -53,7 +53,7 @@ export default class AddUserCreatePopup {
     this.buttonDisactive();
     this.head.textContent = this.placeHolders.header;
     this.name.setAttribute('placeholder', this.placeHolders.name);
-    this.about.setAttribute('placeholder', this.placeHolders.link);
+    this.about.setAttribute('placeholder', this.placeHolders.about);
     this.avatar.setAttribute('placeholder', this.placeHolders.avatar);
     this.email.setAttribute('placeholder', this.placeHolders.email);
     this.password.setAttribute('placeholder', this.placeHolders.password);

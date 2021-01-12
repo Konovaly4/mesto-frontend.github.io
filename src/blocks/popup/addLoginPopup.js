@@ -1,7 +1,6 @@
 import AddPicturePopup from './addPicturePopup';
-import {userName, userJob} from '../../index';
 
-export default class AddUserPopup extends AddPicturePopup {
+export default class AddLoginPopup extends AddPicturePopup {
 
   popupExt() {
     super.popupExt();
@@ -25,18 +24,24 @@ export default class AddUserPopup extends AddPicturePopup {
 
   //добавление данных пользователя при открытии формы
   open() {
-    super.open();
-    this.name.value = userName.textContent;
-    this.link.value = userJob.textContent;
+    this.openClose();
+    this.popupExt();
+    this.form.reset();
+    this.buttonDisactive();
+    this.head.textContent = this.placeHolders.header;
+    this.name.setAttribute('placeholder', this.placeHolders.email);
+    this.link.setAttribute('placeholder', this.placeHolders.password);
+    this.button.textContent = this.placeHolders.button;
+
   }
 
   //открытие формы
   popupOpen() {
     this.open();
-    this.setSubmitButtonState();  
+    this.setSubmitButtonState();
     this.button.classList.remove('popup__button_plus');
     this.link.removeAttribute('place', 'link');
-    this.name.removeAttribute('email', 'email');
+    this.name.setAttribute('email', 'email');
     this.formValidator.errReset(this.nameErrMessage);
     this.formValidator.errReset(this.linkErrMessage);
   }
