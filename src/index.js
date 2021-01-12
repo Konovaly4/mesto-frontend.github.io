@@ -26,8 +26,8 @@ const loginButton = document.querySelector('.user-info__login-button');
 const userName = document.querySelector('.user-info__name');
 const userJob = document.querySelector('.user-info__job');
 const userAvatar = document.querySelector('.user-info__photo');
-const serverUrl = 'https://api.my-mesto.gq';
-// const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://api.my-mesto.gq';
+// const serverUrl = 'https://api.my-mesto.gq';
+const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://api.my-mesto.gq';
 
 
 export {userName, userJob};

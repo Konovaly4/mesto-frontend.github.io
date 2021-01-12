@@ -22,15 +22,9 @@ export default class CardList {
 //карточки с сервера
     initialCards(userName) {
         this.api.initialCards()
-        .then((res) => {
-            if(res.ok) {
-              return res.json();
-            } else {
-              return Promise.reject(err);
-            };
-          })
-          .then((res) => {
-            res.forEach(elem => {
+          .then(res => {return res.data})
+          .then((data) => {
+            data.forEach(elem => {
               this.addCard(elem.name, elem.link, elem._id, elem.likes.length);
               const isLiked = elem.likes.some((position) => {
                 return position.name === userName.textContent;
@@ -49,9 +43,13 @@ export default class CardList {
     createCard(cardName, cardLink, picFormClose, loadNote) {
         this.loader(true, loadNote);
         this.api.createCard(cardName, cardLink)
-          .then((res) => {
+          .then((data) => {
             console.log('res - ' + res);
-            this.addCard(res.name, res.link, res._id, res.likes.length);
+            console.log('resname - ' + res.data.name);
+            console.log('reslink - ' + res.data.link);
+            console.log('res_id - ' + res.data._id);
+            console.log('reslikes - ' + res.data.likes);
+            this.addCard(res.data.name, res.data.link, res.data._id, res.data.likes.length);
             picFormClose();
           })
           .catch((err) => {

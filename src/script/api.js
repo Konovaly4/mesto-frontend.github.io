@@ -71,7 +71,7 @@ userInfo() {
 
 // отрисовка карточек с сервера
   initialCards() {
-    return fetch(`${this.serverData}/cards`, {
+    return fetch(`${this.serverData}/initialCards`, {
       redirect: 'follow',
       method: 'GET',
       credentials: 'include',
@@ -79,6 +79,13 @@ userInfo() {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       }
+    })
+    .then((res) => {
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(err);
+      };
     })
   }
 
@@ -115,12 +122,11 @@ userInfo() {
       })
     })
     .then((res) => {
-      if(res) {
-        console.log(res);
+      if(res.ok) {
+        console.log('res - ' + res);
         return res.json();
       } else {
         return Promise.reject(err)
-        .then(err => console.log('err - ' + err));
       };
     })
   }
