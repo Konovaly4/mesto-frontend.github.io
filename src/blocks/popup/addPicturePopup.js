@@ -1,11 +1,12 @@
 export default class AddPicturePopup {
-  constructor (popupElem, placeHolders, formValidator, action) {
+  constructor (popupElem, placeHolders, formValidator, action, authorization) {
     this.popupElem = popupElem;
     this.placeHolders = placeHolders; 
     //передаю инициализированный класс валидации как параметр
     this.formValidator = formValidator;
     //функции по добавлению данных
     this.action = action;
+    this.authorization = authorization;
   }
 
   //добавление элементов popup
@@ -88,7 +89,7 @@ export default class AddPicturePopup {
   }
   
   //добавление карточки по клику на submit
-  function(event) {
+  onSubmit(event) {
     event.preventDefault();
     this.action.createCard(this.name.value, this.link.value, this.openClose.bind(this), this.picLoadNote.bind(this));
     return;
@@ -98,6 +99,6 @@ export default class AddPicturePopup {
     this.popupExt();
     this.closeButton.onclick = this.openClose.bind(this);
     this.form.addEventListener('input', this.setSubmitButtonState.bind(this));
-    this.button.onclick = this.function.bind(this);
+    this.button.onclick = this.onSubmit.bind(this);
   }
 }

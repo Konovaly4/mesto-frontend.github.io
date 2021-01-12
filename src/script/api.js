@@ -1,3 +1,5 @@
+import CardList from "../blocks/place-card/cardList";
+
 export default class Api {
   constructor (serverData) {
     this.serverData = serverData;
@@ -17,6 +19,30 @@ export default class Api {
         name: `${userName}`,
         about: `${userAbout}`,
         avatar: `${userAvatar}`,
+        email: `${userEmail}`,
+        password: `${userPassword}`
+      })
+    })
+    .then((res) => {
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(res);
+      };
+    });
+  }
+
+  // login
+  login (userEmail, userPassword) {
+    return fetch(`${this.serverData}/signin`, {
+      redirect: 'follow',
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
         email: `${userEmail}`,
         password: `${userPassword}`
       })
@@ -88,6 +114,15 @@ userInfo() {
         link: `${cardLink}`
       })
     })
+    .then((res) => {
+      if(res) {
+        console.log(res);
+        return res.json();
+      } else {
+        return Promise.reject(err)
+        .then(err => console.log('err - ' + err));
+      };
+    })
   }
 
 // удаление карточки
@@ -102,6 +137,8 @@ userInfo() {
       }
     })
   }
+
+  
 
 // лайк
   likeCard(id) {

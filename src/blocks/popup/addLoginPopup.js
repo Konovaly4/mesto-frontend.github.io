@@ -67,9 +67,17 @@ export default class AddLoginPopup extends AddPicturePopup {
     super.setSubmitButtonState();
   }
 
-  function(event) {
+  onSubmit(event) {
     event.preventDefault();
-      this.action.setUserInfo(this.name.value, this.link.value, this.openClose.bind(this), this.usrLoadNote.bind(this));
+      this.action.login(this.name.value, this.link.value)
+      .then(data => {
+        console.log('data - ' + JSON.stringify(data));
+        this.authorization.setAuthorization(data.name);
+        console.log('LS - ' + localStorage.getItem('userName'));
+      })
+      .catch(err => {console.log(err)})
+      .finally(this.openClose());
+      // this.usrLoadNote();
     return;
   }
 
@@ -78,6 +86,6 @@ export default class AddLoginPopup extends AddPicturePopup {
     this.popupExt();
     this.closeButton.onclick = this.openClose.bind(this);
     this.form.addEventListener('input', this.setSubmitButtonState.bind(this));
-    this.button.onclick = this.function.bind(this);
+    this.button.onclick = this.onSubmit.bind(this);
   }
 }

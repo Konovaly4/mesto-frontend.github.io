@@ -5,14 +5,12 @@ export default class Authorization {
   // установка элементов для проверки авторизации
   setAuthorization (userName) {
     localStorage.setItem('authorization', 'true');
-    localStorage.setItem('userName', userName);
     return;
   }
 
   // снятие элементов для проверки авторизации
   removeAuthorization () {
     localStorage.removeItem('authorization');
-    localStorage.removeItem('userName');
     return;
   }
 

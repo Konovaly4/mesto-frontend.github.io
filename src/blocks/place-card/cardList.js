@@ -49,14 +49,8 @@ export default class CardList {
     createCard(cardName, cardLink, picFormClose, loadNote) {
         this.loader(true, loadNote);
         this.api.createCard(cardName, cardLink)
-        .then((res) => {
-            if(res.ok) {
-              return res.json();
-            } else {
-              return Promise.reject(err);
-            };
-          })
           .then((res) => {
+            console.log('res - ' + res);
             this.addCard(res.name, res.link, res._id, res.likes.length);
             picFormClose();
           })

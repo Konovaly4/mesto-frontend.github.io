@@ -26,7 +26,8 @@ const loginButton = document.querySelector('.user-info__login-button');
 const userName = document.querySelector('.user-info__name');
 const userJob = document.querySelector('.user-info__job');
 const userAvatar = document.querySelector('.user-info__photo');
-const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://api.my-mesto.gq';
+const serverUrl = 'https://api.my-mesto.gq';
+// const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://api.my-mesto.gq';
 
 
 export {userName, userJob};
@@ -112,14 +113,14 @@ const avatar = new Avatar(userAvatar, api);
 
 // функция открытия попапа карточки
 const setPicturePopup = () => {
-  const addPicturePopup = new AddPicturePopup(formPopup, placePlaceholders, formValidator, cardList);
+  const addPicturePopup = new AddPicturePopup(formPopup, placePlaceholders, formValidator, cardList, auth);
   addPicturePopup.popupOpen();
   addPicturePopup.setEventListeners();
 }
 
 // функция открытия попапа изменения пользователя
 const setUserPopup = () => {
-  const addUserPopup = new AddUserPopup(formPopup, userPlaceholders, formValidator, userInfo);
+  const addUserPopup = new AddUserPopup(formPopup, userPlaceholders, formValidator, userInfo, auth);
   addUserPopup.popupOpen();
   addUserPopup.setSubmitButtonState();
   addUserPopup.setEventListeners();
@@ -127,7 +128,7 @@ const setUserPopup = () => {
 
 // функция открытия попапа обновления аватара
 const setUserAvatarPopup = () => {
-  const addAvatarPopup = new AddAvatarPopup(avatarPopup, avatarPlaceholders, formValidator, avatar);
+  const addAvatarPopup = new AddAvatarPopup(avatarPopup, avatarPlaceholders, formValidator, avatar, auth);
   addAvatarPopup.popupOpen();
   addAvatarPopup.setSubmitButtonState();
   addAvatarPopup.setEventListeners();
@@ -135,7 +136,7 @@ const setUserAvatarPopup = () => {
 
 // функция открытия попапа создания пользователя
 const setUserCreatePopup = () => {
-  const addUserCreatePopup = new AddUserCreatePopup(userCreatePopup, userCreatePlaceholders, formValidator, api);
+  const addUserCreatePopup = new AddUserCreatePopup(userCreatePopup, userCreatePlaceholders, formValidator, api, auth);
   addUserCreatePopup.popupOpen();
   addUserCreatePopup.setSubmitButtonState();
   addUserCreatePopup.setEventListeners();
@@ -143,7 +144,7 @@ const setUserCreatePopup = () => {
 
 // функция открытия попапа логина
 const setLoginPopup = () => {
-  const addLoginPopup = new AddLoginPopup(formPopup, loginPlaceHolders, formValidator, api);
+  const addLoginPopup = new AddLoginPopup(formPopup, loginPlaceHolders, formValidator, api, auth);
   addLoginPopup.popupOpen();
   addLoginPopup.setEventListeners();
 }
