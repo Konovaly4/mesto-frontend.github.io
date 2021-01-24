@@ -12,7 +12,7 @@ export default class AddPicturePopup {
   //добавление элементов popup
   popupExt() {
     this.form = document.forms.new;
-    this.head = this.popupElem.querySelector('.popup__title')
+    this.header = this.popupElem.querySelector('.popup__title')
     this.name = this.form.elements.name;
     this.link = this.form.elements.link;
     this.button = this.popupElem.querySelector('.popup__button');
@@ -46,10 +46,11 @@ export default class AddPicturePopup {
     this.popupExt();
     this.form.reset();
     this.buttonDisactive();
-    this.head.textContent = this.placeHolders.header;
+    this.header.textContent = this.placeHolders.header;
     this.name.setAttribute('placeholder', this.placeHolders.name);
     this.link.setAttribute('placeholder', this.placeHolders.link);
     this.button.textContent = this.placeHolders.button;
+    this.link.setAttribute('type', 'text');
   }
 
   //добавление класса для кнопки popup

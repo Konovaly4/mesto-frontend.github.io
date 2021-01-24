@@ -11,7 +11,7 @@ export default class CardList {
         if (isLoading) {
           loadNote();
         }
-      }
+      }  
 
 //добавление карточки в контейнер
     addCard(cardName, cardLink, cardId, likeCount) {
@@ -21,6 +21,8 @@ export default class CardList {
 
 //карточки с сервера
     initialCards(userName) {
+      this.cards = [];
+      this.container.innerHTML = '';
         this.api.initialCards()
           .then(res => {return res.data})
           .then((data) => {

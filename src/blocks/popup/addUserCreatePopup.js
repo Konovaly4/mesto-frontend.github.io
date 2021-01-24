@@ -127,16 +127,18 @@ export default class AddUserCreatePopup {
       this.password.value, 
       )
     .then(res => {
-      this.name.value = res.name, 
-      this.about.value = res.about, 
-      this.avatar.value = res.avatar, 
-      this.email.value = res.email, 
-      this.password.value = res.password
+      this.name.value = res.name; 
+      this.about.value = res.about; 
+      this.avatar.value = res.avatar; 
+      this.email.value = res.email;
+      this.password.value = res.password;
+      this.button.textContent = this.placeHolders.button;
+      this.openClose();
+      return;
     })
-    this.button.textContent = this.placeHolders.button;
-    this.openClose();
-    return;
+    .catch(err => console.log(err));
   }
+  
   //установка слушателей событий
   setEventListeners() {
     this.popupExt();

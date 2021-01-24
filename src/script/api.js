@@ -27,7 +27,7 @@ export default class Api {
       if(res.ok) {
         return res.json();
       } else {
-        return Promise.reject(res);
+        return Promise.reject(err);
       };
     });
   }
@@ -51,11 +51,30 @@ export default class Api {
       if(res.ok) {
         return res.json();
       } else {
-        return Promise.reject(res);
+        return Promise.reject(err);
       };
     });
   }
 
+  // выход из системы
+  logout () {
+    return fetch(`${this.serverData}/users/signout`, {
+      redirect: 'follow',
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res) => {
+      if(res.ok) {
+        return res.status;
+      } else {
+        return Promise.reject(err);
+      };
+    })
+  }
 // получение данных пользователя
 userInfo() {
     return fetch(`${this.serverData}/users/me`, {
@@ -191,8 +210,8 @@ userInfo() {
       body: JSON.stringify({
         avatar: `${avLink}`
       })
-  })
-}
+   })
+  }
 
 }
 

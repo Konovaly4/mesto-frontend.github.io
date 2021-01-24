@@ -39,6 +39,7 @@ export default class AddUserPopup extends AddPicturePopup {
     this.name.removeAttribute('email', 'email');
     this.formValidator.errReset(this.nameErrMessage);
     this.formValidator.errReset(this.linkErrMessage);
+    this.link.setAttribute('type', 'text');
   }
 
   //сообщение о загрузке

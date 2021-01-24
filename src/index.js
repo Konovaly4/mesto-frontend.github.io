@@ -11,7 +11,17 @@ import AddLoginPopup from './blocks/popup/addLoginPopup';
 import FormValidator from './script/formValidator';
 import UserInfo from './blocks/user-info/userInfo';
 import Avatar from './blocks/user-info/avatar';
-import Authorization from "./script/authorization";
+import Authorization from './script/authorization';
+import {
+  errorMesages,
+  placePlaceholders,
+  userPlaceholders,
+  userCreatePlaceholders,
+  avatarPlaceholders,
+  loginPlaceHolders,
+  userButtonPlaceholders,
+  defaultUserFills} from './constants/placeholders';
+import avatarDefault from './images/avatar-default.jpg';
 
 //основные переменные
 const root = document.querySelector('.root');
@@ -20,9 +30,8 @@ const picturePopup = document.querySelector('#picture-popup');
 const avatarPopup = document.querySelector('#avatar-popup');
 const userCreatePopup = document.querySelector('#create-popup')
 const addButton = document.querySelector('.user-info__button');
-const editButton = document.querySelector('.user-info__edit-button');
-const createButton = document.querySelector('.user-info__create-button');
-const loginButton = document.querySelector('.user-info__login-button');
+const userButton = document.querySelector('.user-info__user-button');
+const authButton = document.querySelector('.user-info__auth-button');
 const userName = document.querySelector('.user-info__name');
 const userJob = document.querySelector('.user-info__job');
 const userAvatar = document.querySelector('.user-info__photo');
@@ -31,58 +40,6 @@ const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:300
 
 
 export {userName, userJob};
-
-//сообщения ошибок
-const errorMesages = {
-  requiredErr: 'Это обязательное поле',
-  lengtErr: 'Должно быть от 2 до 30 символов',
-  linkErr: 'Здесь должна быть ссылка',
-  emailErr: 'формат email должен быть валидным'
-}
-
-// фразы-плейсхолдеры popup Новое Место
-const placePlaceholders = {
-  header: 'Новое место',
-  name: 'Название',
-  link: 'Ссылка на картинку',
-  button: '+',
-  buttonOnLoad: 'Загрузка'
-}
-
-// фразы-плейсхолдеры popup Редактировать профиль
-const userPlaceholders = {
-  header: 'Редактировать профиль',
-  name: 'Имя',
-}
-
-// фразы-плейсхолдеры popup регистрации
-const userCreatePlaceholders = {
-  header: 'РРегистрация',
-  name: 'Имя',
-  about: 'О себе',
-  avatar: 'Ссылка на аватар',
-  email: 'Email',
-  password: 'Пароль',
-  button: 'Сохранить',
-  buttonOnLoad: 'Загрузка'
-}
-
-// фразы-плейсхолдеры popup Редактировать аватар
-const avatarPlaceholders = {
-  header: 'Обновить аватар',
-  link: 'Ссылка на аватар',
-  button: 'Сохранить',
-  buttonOnLoad: 'Загрузка'
-}
-
-//фразы-плейсхолдеры для попапа логина
-const loginPlaceHolders = {
-  header: 'Вход',
-  email: 'Введите email',
-  password: 'Введите пароль',
-  button: 'Сохранить',
-  buttonOnLoad: 'Загрузка'
-}
 
 //объявление запроса к серверу для получения данных пользователя
 const api = new Api(serverUrl);
@@ -142,42 +99,48 @@ const setUserCreatePopup = () => {
 
 // функция открытия попапа логина
 const setLoginPopup = () => {
-  const addLoginPopup = new AddLoginPopup(formPopup, loginPlaceHolders, formValidator, api, auth, userName, userJob, userAvatar);
+  const addLoginPopup = new AddLoginPopup(
+    formPopup,
+    loginPlaceHolders,
+    formValidator,
+    api,
+    auth,
+    userName,
+    userJob,
+    userAvatar,
+    userButton,
+    authButton,
+    userButtonPlaceholders);
   addLoginPopup.popupOpen();
   addLoginPopup.setEventListeners();
 }
 
-
 // начальная загрузка страницы
-// const pageRender = () => {
-//   console.log('auth - ' + auth.checkAuthorization());
-//   console.log('LS - ' + localStorage.getItem('authorization'));
-//   if (!auth.checkAuthorization()) {
-//     userName.textContent = 'Авторизируйтесь';
-//     userJob.textContent = 'Или выполните вход';
-//     return;
-//   } else {
-//     userInfo.getUserInfo()
-//     .then(user => {
-//       userName = user.userName;
-//       userJob = user.userAbout;
-//       userAvatar.style.backgroundImage = `url(${res.avatar})`;
-//     });
-//   }
-//   cardList.initialCards(userName);
-//   cardList.setEventListeners();
-// }
-
-// pageRender();
-
 const initialRender = () => {
   auth.removeAuthorization();
-  console.log(auth.checkAuthorization());
-  userName.textContent = 'Авторизируйтесь';
-  userJob.textContent = 'Или выполните вход';
+  userName.textContent = defaultUserFills.nameFill;
+  userJob.textContent = defaultUserFills.aboutFill;
+  userAvatar.style.backgroundImage = `url(${avatarDefault})`;
+  authButton.textContent = userButtonPlaceholders.loginMode;
+  userButton.textContent = userButtonPlaceholders.createMode;
   cardList.initialCards(undefined);
   cardList.setEventListeners();
+  console.log(auth.checkAuthorization());
 }
+
+// выход из системы
+const logout = () => {
+  api.logout()
+  .then(res => {
+    console.log(res);
+    initialRender();
+  })
+  .catch(err => {console.log(err)})
+}
+
+// установка функций кнопки пользователя
+const setUserButtonFunction = () => { auth.checkAuthorization() ? setUserPopup() : setUserCreatePopup() };
+const setAuthButtonFunction = () => { auth.checkAuthorization() ? logout() : setLoginPopup() };
 
 initialRender();
 
@@ -186,14 +149,13 @@ initialRender();
 //слушатель кнопки добавления карточки
 addButton.addEventListener('click', setPicturePopup);
 
-//слушатель кнопки изменения данных профиля
-editButton.addEventListener('click', setUserPopup);
+//слушатель кнопки профиля
+userButton.addEventListener('click', setUserButtonFunction);
+// userButton.addEventListener('click', auth.checkAuthorization() ? setUserPopup : setUserCreatePopup);
 
-// слушатель кнопки создания профиля
-createButton.addEventListener('click', setUserCreatePopup);
-
-// слушатель кнопки логина
-loginButton.addEventListener('click', setLoginPopup);
+// слушатель кнопки регистрации
+authButton.addEventListener('click', setAuthButtonFunction);
+// authButton.addEventListener('click', auth.checkAuthorization() ? logout : setLoginPopup);
 
 //слушатель аватара
 userAvatar.addEventListener('click', setUserAvatarPopup);

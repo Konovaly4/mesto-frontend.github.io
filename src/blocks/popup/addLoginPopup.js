@@ -2,11 +2,26 @@ import { userJob } from '../..';
 import AddPicturePopup from './addPicturePopup';
 
 export default class AddLoginPopup extends AddPicturePopup {
-  constructor(popupElem, placeHolders, formValidator, action, authorization, userName, userJob, userAvatar) {
+  constructor(
+    popupElem,
+    placeHolders,
+    formValidator,
+    action,
+    authorization,
+    userName,
+    userJob,
+    userAvatar,
+    userButton,
+    authButton,
+    buttonPlaceHolders
+    ) {
     super(popupElem, placeHolders, formValidator, action, authorization);
     this.userName = userName;
     this.userJob = userJob;
     this.userAvatar = userAvatar;
+    this.userButton = userButton;
+    this.authButton = authButton;
+    this.buttonPlaceHolders = buttonPlaceHolders;
   }
 
   popupExt() {
@@ -35,11 +50,11 @@ export default class AddLoginPopup extends AddPicturePopup {
     this.popupExt();
     this.form.reset();
     this.buttonDisactive();
-    this.head.textContent = this.placeHolders.header;
+    this.header.textContent = this.placeHolders.header;
     this.name.setAttribute('placeholder', this.placeHolders.email);
     this.link.setAttribute('placeholder', this.placeHolders.password);
     this.button.textContent = this.placeHolders.button;
-
+    this.link.setAttribute('type', 'password');
   }
 
   //открытие формы
@@ -86,6 +101,8 @@ export default class AddLoginPopup extends AddPicturePopup {
           this.userName.textContent = res.data.name;
           this.userJob.textContent = res.data.about;
           this.userAvatar.style.backgroundImage = `url('${res.data.avatar}')`;
+          this.userButton.textContent = this.buttonPlaceHolders.editMode;
+          this.authButton.textContent = this.buttonPlaceHolders.logoutMode;
         })
       })
       .catch(err => {console.log(err)})

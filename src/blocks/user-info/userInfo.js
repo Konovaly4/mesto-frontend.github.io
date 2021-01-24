@@ -33,8 +33,8 @@ export default class UserInfo {
       };
     })
     .then((res) => {
-      this.userName.textContent = res.name;
-      this.userJob.textContent = res.about;
+      this.userName.textContent = res.data.name;
+      this.userJob.textContent = res.data.about;
       this.userAvatar.style.backgroundImage = `url(${res.avatar})`;
       usrFormClose();
     })

@@ -56,7 +56,7 @@ export default class AddAvatarPopup extends AddPicturePopup {
         }
     }
 
-    function(event) {
+    onSubmit(event) {
         event.preventDefault();
         this.action.loadAvatar(this.link.value, this.openClose.bind(this), this.avatarLoadNote.bind(this));
         return;
@@ -67,7 +67,7 @@ export default class AddAvatarPopup extends AddPicturePopup {
         this.popupExt();
         this.closeButton.onclick = this.openClose.bind(this);
         this.form.addEventListener('input', this.setSubmitButtonState.bind(this));
-        this.button.onclick = this.function.bind(this);
+        this.button.onclick = this.onSubmit.bind(this);
       }
       
 }
