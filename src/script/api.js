@@ -96,8 +96,8 @@ userInfo() {
   }
 
 // отрисовка карточек с сервера
-  initialCards() {
-    return fetch(`${this.serverData}/initialCards`, {
+  getCards() {
+    return fetch(`${this.serverData}/cards`, {
       redirect: 'follow',
       method: 'GET',
       credentials: 'include',
@@ -174,7 +174,8 @@ userInfo() {
 
 // лайк
   likeCard(id) {
-    return fetch(`${this.serverData}/cards/like/${id}`, {
+    console.log('id - ' + id);
+    return fetch(`${this.serverData}/cards/${id}/likes`, {
       redirect: 'follow',
       method: 'PUT',
       credentials: 'include',
@@ -187,7 +188,7 @@ userInfo() {
 
 // сброс лайка
   unlikeCard(id) {
-    return fetch(`${this.serverData}/cards/like/${id}`, {
+    return fetch(`${this.serverData}/cards/${id}/likes`, {
       redirect: 'follow',
       method: 'DELETE',
       credentials: 'include',

@@ -14,26 +14,40 @@ export default class CardList {
       }  
 
 //добавление карточки в контейнер
-    addCard(cardName, cardLink, cardId, likeCount) {
-        this.cards.push(this.card.cardElement(cardName, cardLink, cardId, likeCount));
-        this.container.appendChild(this.card.cardElement(cardName, cardLink, cardId, likeCount));
+    addCard(cardName, cardLink, cardId, likeCount, isLiked) {
+        this.cards.push(this.card.cardElement(cardName, cardLink, cardId, likeCount, isLiked));
+        this.container.appendChild(this.card.cardElement(cardName, cardLink, cardId, likeCount, isLiked));
     }
 
 //карточки с сервера
-    initialCards(userName) {
+    // initialCards() {
+    //   this.cards = [];
+    //   this.container.innerHTML = '';
+    //     this.api.getCards()
+    //       .then(res => {return res.data})
+    //       .then((data) => {
+    //         data.forEach(elem => {
+    //           this.addCard(elem.name, elem.link, elem._id, elem.likes.length);
+    //         })
+    //       })
+    //       .catch((err) => {
+    //         console.log('initialCardsError ' + err);
+    //       });
+    // }
+
+//карточки с сервера для зарегистрированного пользователя
+    getCards(userId) {
       this.cards = [];
       this.container.innerHTML = '';
-        this.api.initialCards()
+        this.api.getCards()
           .then(res => {return res.data})
           .then((data) => {
             data.forEach(elem => {
-              this.addCard(elem.name, elem.link, elem._id, elem.likes.length);
               const isLiked = elem.likes.some((position) => {
-                return position.name === userName.textContent;
-             })
-             if (isLiked) {
-               document.getElementById(`${elem._id}`).closest('.place-card').querySelector('.place-card__like-icon').classList.add('place-card__like-icon_liked');
-             }
+                return position === userId;
+              });
+              console.log('liked - ' + isLiked);
+              this.addCard(elem.name, elem.link, elem._id, elem.likes.length, isLiked);
             })
           })
           .catch((err) => {
@@ -45,12 +59,7 @@ export default class CardList {
     createCard(cardName, cardLink, picFormClose, loadNote) {
         this.loader(true, loadNote);
         this.api.createCard(cardName, cardLink)
-          .then((data) => {
-            console.log('res - ' + res);
-            console.log('resname - ' + res.data.name);
-            console.log('reslink - ' + res.data.link);
-            console.log('res_id - ' + res.data._id);
-            console.log('reslikes - ' + res.data.likes);
+          .then((res) => {
             this.addCard(res.data.name, res.data.link, res.data._id, res.data.likes.length);
             picFormClose();
           })
@@ -100,7 +109,7 @@ export default class CardList {
             })
             .then((res) => {
             document.getElementById(`${cardId}`).closest('.place-card').querySelector('.place-card__like-icon').classList.add('place-card__like-icon_liked');
-            document.getElementById(`${cardId}`).closest('.place-card').querySelector('.place-card__like-count').textContent = res.likes.length;
+            document.getElementById(`${cardId}`).closest('.place-card').querySelector('.place-card__like-count').textContent = res.data.likes.length;
             })
             .catch((err) => {
             console.log('likeError ' + err);
@@ -125,7 +134,7 @@ export default class CardList {
               })
               .then((res) => {
                 document.getElementById(`${cardId}`).closest('.place-card').querySelector('.place-card__like-icon').classList.remove('place-card__like-icon_liked');
-                document.getElementById(`${cardId}`).closest('.place-card').querySelector('.place-card__like-count').textContent = res.likes.length;
+                document.getElementById(`${cardId}`).closest('.place-card').querySelector('.place-card__like-count').textContent = res.data.likes.length;
               })
               .catch((err) => {
                 console.log('likeError ' + err);

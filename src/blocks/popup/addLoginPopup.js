@@ -13,7 +13,8 @@ export default class AddLoginPopup extends AddPicturePopup {
     userAvatar,
     userButton,
     authButton,
-    buttonPlaceHolders
+    buttonPlaceHolders,
+    cardListRender
     ) {
     super(popupElem, placeHolders, formValidator, action, authorization);
     this.userName = userName;
@@ -22,6 +23,7 @@ export default class AddLoginPopup extends AddPicturePopup {
     this.userButton = userButton;
     this.authButton = authButton;
     this.buttonPlaceHolders = buttonPlaceHolders;
+    this.cardListRender = cardListRender;
   }
 
   popupExt() {
@@ -103,6 +105,8 @@ export default class AddLoginPopup extends AddPicturePopup {
           this.userAvatar.style.backgroundImage = `url('${res.data.avatar}')`;
           this.userButton.textContent = this.buttonPlaceHolders.editMode;
           this.authButton.textContent = this.buttonPlaceHolders.logoutMode;
+          localStorage.setItem('userId', res.data._id);
+          this.cardListRender.getCards(res.data._id);
         })
       })
       .catch(err => {console.log(err)})

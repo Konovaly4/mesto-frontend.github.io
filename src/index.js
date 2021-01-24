@@ -35,6 +35,7 @@ const authButton = document.querySelector('.user-info__auth-button');
 const userName = document.querySelector('.user-info__name');
 const userJob = document.querySelector('.user-info__job');
 const userAvatar = document.querySelector('.user-info__photo');
+const currentUser = {};
 // const serverUrl = 'https://api.my-mesto.gq';
 const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://api.my-mesto.gq';
 
@@ -110,7 +111,8 @@ const setLoginPopup = () => {
     userAvatar,
     userButton,
     authButton,
-    userButtonPlaceholders);
+    userButtonPlaceholders,
+    cardList);
   addLoginPopup.popupOpen();
   addLoginPopup.setEventListeners();
 }
@@ -118,12 +120,13 @@ const setLoginPopup = () => {
 // начальная загрузка страницы
 const initialRender = () => {
   auth.removeAuthorization();
+  localStorage.removeItem('userId');
   userName.textContent = defaultUserFills.nameFill;
   userJob.textContent = defaultUserFills.aboutFill;
   userAvatar.style.backgroundImage = `url(${avatarDefault})`;
   authButton.textContent = userButtonPlaceholders.loginMode;
   userButton.textContent = userButtonPlaceholders.createMode;
-  cardList.initialCards(undefined);
+  cardList.getCards(localStorage.getItem('userId'));
   cardList.setEventListeners();
   console.log(auth.checkAuthorization());
 }

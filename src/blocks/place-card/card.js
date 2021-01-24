@@ -2,7 +2,8 @@ export default class Card {
   constructor() {}
 
 // новая карточка
-  cardElement (name, link, id, likeCount) {
+  cardElement (name, link, id, likeCount, isLiked) {
+    console.log('cardLike - ' + isLiked);
     const placeCard = document.createElement("div");
     placeCard.classList.add("place-card");
     placeCard.innerHTML = `
@@ -19,6 +20,7 @@ export default class Card {
     placeCard.querySelector(".place-card__name").textContent = name;
     placeCard.querySelector(".place-card__image").style.backgroundImage = `url(${link})`;
     placeCard.querySelector('.place-card__like-count').textContent = likeCount;
+    if (isLiked) { placeCard.querySelector('.place-card__like-icon').classList.add('place-card__like-icon_liked') };
     placeCard.addEventListener('click', this.like.bind(this));
     return placeCard;
   }
