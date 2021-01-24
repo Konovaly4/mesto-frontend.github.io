@@ -3,14 +3,14 @@ export default class Authorization {
   }
 
   // установка элементов для проверки авторизации
-  setAuthorization (userName) {
+  setAuthorization () {
     localStorage.setItem('authorization', 'true');
     return;
   }
 
   // снятие элементов для проверки авторизации
   removeAuthorization () {
-    localStorage.removeItem('authorization');
+    localStorage.removeItem('authorization', 'true');
     return;
   }
 
@@ -18,11 +18,4 @@ export default class Authorization {
   checkAuthorization () {
     return !!localStorage.getItem('authorization');
   }
-
-  // получение имени пользователя (для кнопки хедера)
-  getUser () {
-    if (!this.checkAuthorization()) { return } else
-    return localStorage.getItem('authorization');
-  }
-
 }

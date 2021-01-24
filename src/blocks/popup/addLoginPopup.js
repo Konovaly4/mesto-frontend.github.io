@@ -1,6 +1,13 @@
+import { userJob } from '../..';
 import AddPicturePopup from './addPicturePopup';
 
 export default class AddLoginPopup extends AddPicturePopup {
+  constructor(popupElem, placeHolders, formValidator, action, authorization, userName, userJob, userAvatar) {
+    super(popupElem, placeHolders, formValidator, action, authorization);
+    this.userName = userName;
+    this.userJob = userJob;
+    this.userAvatar = userAvatar;
+  }
 
   popupExt() {
     super.popupExt();
@@ -72,8 +79,14 @@ export default class AddLoginPopup extends AddPicturePopup {
       this.action.login(this.name.value, this.link.value)
       .then(data => {
         console.log('data - ' + JSON.stringify(data));
-        this.authorization.setAuthorization(data.name);
-        console.log('LS - ' + localStorage.getItem('userName'));
+        this.authorization.setAuthorization();
+        this.action.userInfo()
+        .then(res => {
+          console.log(res.data);
+          this.userName.textContent = res.data.name;
+          this.userJob.textContent = res.data.about;
+          this.userAvatar.style.backgroundImage = `url('${res.data.avatar}')`;
+        })
       })
       .catch(err => {console.log(err)})
       .finally(this.openClose());

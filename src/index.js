@@ -101,12 +101,10 @@ const formValidator = new FormValidator(errorMesages);
 
 //объявление класса создания карточки через popup
 const cardList = new CardList(cardContainer, card, api);
-cardList.initialCards(userName);
-cardList.setEventListeners();
 
 //новая форма данных пользователя
-const userInfo = new UserInfo(userName, userJob, userAvatar, api);
-userInfo.userInfo();
+// const userInfo = new UserInfo(userName, userJob, userAvatar, api);
+const userInfo = new UserInfo(auth, api);
 
 //новая форма смены аватара
 const avatar = new Avatar(userAvatar, api);
@@ -144,10 +142,45 @@ const setUserCreatePopup = () => {
 
 // функция открытия попапа логина
 const setLoginPopup = () => {
-  const addLoginPopup = new AddLoginPopup(formPopup, loginPlaceHolders, formValidator, api, auth);
+  const addLoginPopup = new AddLoginPopup(formPopup, loginPlaceHolders, formValidator, api, auth, userName, userJob, userAvatar);
   addLoginPopup.popupOpen();
   addLoginPopup.setEventListeners();
 }
+
+
+// начальная загрузка страницы
+// const pageRender = () => {
+//   console.log('auth - ' + auth.checkAuthorization());
+//   console.log('LS - ' + localStorage.getItem('authorization'));
+//   if (!auth.checkAuthorization()) {
+//     userName.textContent = 'Авторизируйтесь';
+//     userJob.textContent = 'Или выполните вход';
+//     return;
+//   } else {
+//     userInfo.getUserInfo()
+//     .then(user => {
+//       userName = user.userName;
+//       userJob = user.userAbout;
+//       userAvatar.style.backgroundImage = `url(${res.avatar})`;
+//     });
+//   }
+//   cardList.initialCards(userName);
+//   cardList.setEventListeners();
+// }
+
+// pageRender();
+
+const initialRender = () => {
+  auth.removeAuthorization();
+  console.log(auth.checkAuthorization());
+  userName.textContent = 'Авторизируйтесь';
+  userJob.textContent = 'Или выполните вход';
+  cardList.initialCards(undefined);
+  cardList.setEventListeners();
+}
+
+initialRender();
+
 
 //слушатели событий
 //слушатель кнопки добавления карточки

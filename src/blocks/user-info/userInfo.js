@@ -1,31 +1,20 @@
 //класс формы popup для заполнения данных пользователя
 export default class UserInfo {
-  constructor(userName, userJob, userAvatar, api) {
-    this.userName = userName;
-    this.userJob = userJob;
-    this.userAvatar = userAvatar;
+  constructor(auth, api) {
+    this.auth = auth;
     this.api = api;
   }
 
-  loader(isLoading, loadNote) {
-    if (isLoading) {
-      loadNote();
-    }
-  }
-
-  userInfo() {
+  getUserInfo() {
     this.api.userInfo()
     .then((res) => {
-      if(res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(err);
+      console.log(res);
+      const user = {
+      name: res.data.name,
+      about: res.data.about,
+      avatar: res.data.avatar,
       };
-    })
-    .then((res) => {
-      this.userName.textContent = res.name;
-      this.userJob.textContent = res.about;
-      this.userAvatar.style.backgroundImage = `url(${res.avatar})`;
+      return user;
     })
     .catch((err) => {
       console.log('userInfoError ' + err);

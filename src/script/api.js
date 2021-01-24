@@ -67,6 +67,13 @@ userInfo() {
         'Content-Type': 'application/json',
       }
     })
+    .then((res) => {
+      if(res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(err);
+      };
+    })
   }
 
 // отрисовка карточек с сервера
