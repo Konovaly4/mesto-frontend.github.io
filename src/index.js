@@ -69,6 +69,10 @@ const avatar = new Avatar(userAvatar, api);
 
 // функция открытия попапа карточки
 const setPicturePopup = () => {
+  if (!localStorage.getItem('userId')) { 
+    alert('Зарегистрируйтесь или войдите, чтобы добавить карточку');
+    return;
+   }
   const addPicturePopup = new AddPicturePopup(formPopup, placePlaceholders, formValidator, cardList, auth);
   addPicturePopup.popupOpen();
   addPicturePopup.setEventListeners();
