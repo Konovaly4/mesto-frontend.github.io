@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mesto</title>
-  <link rel="stylesheet" href="style.3767819b4fa04babac21.css">
+  <link rel="stylesheet" href="style.f40b5d02b3f8c1cb5275.css">
 </head>
 <body>
   <div class="root">
@@ -18,7 +18,8 @@
         <div class="user-info__data">
           <h1 class="user-info__name"></h1>
           <p class="user-info__job"></p>
-          <button class="user-info__edit-button">Edit</button>
+          <button class="user-info__user-button"></button>
+          <button class="user-info__auth-button"></button>
         </div>
         <button class="button user-info__button">+</button>
       </div>
@@ -35,6 +36,25 @@
             <input id="link" type="text" required name="link" class="popup__input popup__input_type_link-url"> 
             <span id="error-link" class="popup__error-message"></span> 
             <button name="submit" class="button popup__button"></button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" id="create-popup">
+      <div class="popup__content">
+        <img src="./images/close.svg" alt="image" class="popup__close" id="close-button">
+        <h3 class="popup__title"></h3>
+        <form class="popup__form" novalidate name="create">
+            <input id="name" type="text" required name="name" class="popup__input popup__input_type_name">
+            <span id ="error-name" class="popup__error-message"></span> 
+            <input id="about" type="text" required name="about" class="popup__input popup__input_type_name">
+            <span id="error-about" class="popup__error-message"></span> 
+            <input id="avatar" type="text" required name="avatar" class="popup__input popup__input_type_link-url" place="link"> 
+            <span id="error-avatar" class="popup__error-message"></span> 
+            <input id="email" type="text" required name="email" class="popup__input popup__input_type_name" email="email">
+            <span id ="error-email" class="popup__error-message"></span> 
+            <input id="password" type="password" required name="password" class="popup__input popup__input_type_name">
+            <span id ="error-password" class="popup__error-message"></span> 
+            <button id="submit" class="button popup__button"></button>
         </form>
       </div>
     </div>
@@ -55,7 +75,7 @@
       </div>
     </div>
   </div>
-  <script type="module" name="index" src="main.13f39e2161a4c35f3665.js"></script>
+  <script type="module" name="index" src="main.aa98667665438d112ed1.js"></script>
   </body>
 </html>
 
