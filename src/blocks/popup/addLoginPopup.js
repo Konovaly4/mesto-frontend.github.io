@@ -1,4 +1,3 @@
-import { userJob } from '../..';
 import AddPicturePopup from './addPicturePopup';
 
 export default class AddLoginPopup extends AddPicturePopup {
@@ -111,7 +110,6 @@ export default class AddLoginPopup extends AddPicturePopup {
       })
       .catch(err => {console.log(err)})
       .finally(this.openClose());
-      // this.usrLoadNote();
     return;
   }
 

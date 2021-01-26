@@ -19,22 +19,6 @@ export default class CardList {
         this.container.appendChild(this.card.cardElement(cardName, cardLink, cardId, likeCount, isLiked));
     }
 
-//карточки с сервера
-    // initialCards() {
-    //   this.cards = [];
-    //   this.container.innerHTML = '';
-    //     this.api.getCards()
-    //       .then(res => {return res.data})
-    //       .then((data) => {
-    //         data.forEach(elem => {
-    //           this.addCard(elem.name, elem.link, elem._id, elem.likes.length);
-    //         })
-    //       })
-    //       .catch((err) => {
-    //         console.log('initialCardsError ' + err);
-    //       });
-    // }
-
 //карточки с сервера для зарегистрированного пользователя
     getCards(userId) {
       this.cards = [];

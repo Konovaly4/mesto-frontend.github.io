@@ -1,4 +1,3 @@
-import CardList from "../blocks/place-card/cardList";
 
 export default class Api {
   constructor (serverData) {
@@ -75,6 +74,7 @@ export default class Api {
       };
     })
   }
+
 // получение данных пользователя
 userInfo() {
     return fetch(`${this.serverData}/users/me`, {
@@ -170,8 +170,6 @@ userInfo() {
     })
   }
 
-  
-
 // лайк
   likeCard(id) {
     console.log('id - ' + id);
@@ -198,7 +196,8 @@ userInfo() {
       }
     })
   }
-
+  
+//  смена аватара
   setAvatar(avLink) {
     return fetch(`${this.serverData}/users/me/avatar`, {
       redirect: 'follow',

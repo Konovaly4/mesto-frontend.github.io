@@ -36,7 +36,6 @@ const userName = document.querySelector('.user-info__name');
 const userJob = document.querySelector('.user-info__job');
 const userAvatar = document.querySelector('.user-info__photo');
 const currentUser = {};
-// const serverUrl = 'https://api.my-mesto.gq';
 const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://api.my-mesto.gq';
 
 
@@ -61,7 +60,6 @@ const formValidator = new FormValidator(errorMesages);
 const cardList = new CardList(cardContainer, card, api);
 
 //новая форма данных пользователя
-// const userInfo = new UserInfo(userName, userJob, userAvatar, api);
 const userInfo = new UserInfo(auth, api);
 
 //новая форма смены аватара
@@ -158,11 +156,9 @@ addButton.addEventListener('click', setPicturePopup);
 
 //слушатель кнопки профиля
 userButton.addEventListener('click', setUserButtonFunction);
-// userButton.addEventListener('click', auth.checkAuthorization() ? setUserPopup : setUserCreatePopup);
 
 // слушатель кнопки регистрации
 authButton.addEventListener('click', setAuthButtonFunction);
-// authButton.addEventListener('click', auth.checkAuthorization() ? logout : setLoginPopup);
 
 //слушатель аватара
 userAvatar.addEventListener('click', setUserAvatarPopup);
