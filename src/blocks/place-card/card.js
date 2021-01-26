@@ -3,7 +3,6 @@ export default class Card {
 
 // новая карточка
   cardElement (name, link, id, likeCount, isLiked) {
-    console.log('cardLike - ' + isLiked);
     const placeCard = document.createElement("div");
     placeCard.classList.add("place-card");
     placeCard.innerHTML = `

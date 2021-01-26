@@ -30,7 +30,6 @@ export default class CardList {
               const isLiked = elem.likes.some((position) => {
                 return position === userId;
               });
-              console.log('liked - ' + isLiked);
               this.addCard(elem.name, elem.link, elem._id, elem.likes.length, isLiked);
             })
           })
@@ -59,8 +58,6 @@ export default class CardList {
         if (event.target.classList.contains('place-card__delete-icon')) {
           if (confirm('Вы действительно хотите удалить эту карточку?')) {  
             let cardId = event.target.closest('.place-card__image').getAttribute('id');
-            console.log('cardId - ' + cardId);
-            console.log('userId - ' + localStorage.getItem('userId'));
             this.api.deleteCard(cardId)
             .then((res) => {
                 if(res.ok) {

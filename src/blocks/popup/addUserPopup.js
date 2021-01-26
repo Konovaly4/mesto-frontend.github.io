@@ -42,11 +42,6 @@ export default class AddUserPopup extends AddPicturePopup {
     this.link.setAttribute('type', 'text');
   }
 
-  //сообщение о загрузке
-  usrLoadNote() {
-    this.button.textContent = this.placeHolders.buttonOnLoad;
-  }
-
   //валидация поля name
   formNameValidate() {
     this.popupExt();
@@ -63,9 +58,9 @@ export default class AddUserPopup extends AddPicturePopup {
     super.setSubmitButtonState();
   }
 
-  function(event) {
+  onSubmit(event) {
     event.preventDefault();
-      this.action.setUserInfo(this.name.value, this.link.value, this.openClose.bind(this), this.usrLoadNote.bind(this));
+      this.action.setUserInfo(this.name.value, this.link.value, this.openClose.bind(this));
     return;
   }
 
@@ -74,6 +69,6 @@ export default class AddUserPopup extends AddPicturePopup {
     this.popupExt();
     this.closeButton.onclick = this.openClose.bind(this);
     this.form.addEventListener('input', this.setSubmitButtonState.bind(this));
-    this.button.onclick = this.function.bind(this);
+    this.button.onclick = this.onSubmit.bind(this);
   }
 }

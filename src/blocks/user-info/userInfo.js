@@ -1,8 +1,10 @@
 //класс формы popup для заполнения данных пользователя
 export default class UserInfo {
-  constructor(auth, api) {
-    this.auth = auth;
+  constructor(api, userName, userJob, userAvatar) {
     this.api = api;
+    this.userName = userName;
+    this.userJob = userJob;
+    this.userAvatar = userAvatar;
   }
 
   getUserInfo() {
@@ -22,26 +24,17 @@ export default class UserInfo {
   }
 
   //заполнение формы
-  setUserInfo(usrName, usrJob, usrFormClose, loadNote) {
-    this.loader (true, loadNote);
+  setUserInfo(usrName, usrJob, usrFormClose) {
     this.api.setUserInfo(usrName, usrJob)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-      } else {
-        return Promise.reject(err);
-      };
-    })
     .then((res) => {
       this.userName.textContent = res.data.name;
       this.userJob.textContent = res.data.about;
-      this.userAvatar.style.backgroundImage = `url(${res.avatar})`;
+      this.userAvatar.style.backgroundImage = `url(${res.data.avatar})`;
       usrFormClose();
     })
     .catch((err) => {
       console.log('setUserInfoError ' + err);
-    })
-    .finally(this.loader(false, loadNote));
+    });
 
   }
 }

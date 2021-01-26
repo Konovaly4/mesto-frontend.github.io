@@ -40,10 +40,6 @@ export default class AddAvatarPopup extends AddPicturePopup {
         this.formValidator.errReset(this.linkErrMessage);
     }  
 
-    avatarLoadNote() {
-        this.button.textContent = this.placeHolders.buttonOnLoad;
-      }
-
     formLinkValidate() {
         this.popupExt();
         return this.formValidator.inputValidity(this.popupElem, this.link);
@@ -58,7 +54,7 @@ export default class AddAvatarPopup extends AddPicturePopup {
 
     onSubmit(event) {
         event.preventDefault();
-        this.action.loadAvatar(this.link.value, this.openClose.bind(this), this.avatarLoadNote.bind(this));
+        this.action.loadAvatar(this.link.value, this.openClose.bind(this));
         return;
     }
 

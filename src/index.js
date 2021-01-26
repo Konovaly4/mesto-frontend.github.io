@@ -35,14 +35,14 @@ const authButton = document.querySelector('.user-info__auth-button');
 const userName = document.querySelector('.user-info__name');
 const userJob = document.querySelector('.user-info__job');
 const userAvatar = document.querySelector('.user-info__photo');
-const currentUser = {};
+const loader = document.querySelector('.loader');
 const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://api.my-mesto.gq';
 
 
 export {userName, userJob};
 
 //объявление запроса к серверу для получения данных пользователя
-const api = new Api(serverUrl);
+const api = new Api(serverUrl, loader);
 
 // объявление класса авторизации
 const auth = new Authorization();
@@ -60,7 +60,7 @@ const formValidator = new FormValidator(errorMesages);
 const cardList = new CardList(cardContainer, card, api);
 
 //новая форма данных пользователя
-const userInfo = new UserInfo(auth, api);
+const userInfo = new UserInfo(api, userName, userJob, userAvatar);
 
 //новая форма смены аватара
 const avatar = new Avatar(userAvatar, api);
@@ -130,7 +130,6 @@ const initialRender = () => {
   userButton.textContent = userButtonPlaceholders.createMode;
   cardList.getCards(localStorage.getItem('userId'));
   cardList.setEventListeners();
-  console.log(auth.checkAuthorization());
 }
 
 // выход из системы

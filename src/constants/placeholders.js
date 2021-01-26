@@ -19,6 +19,7 @@ export const placePlaceholders = {
 export const userPlaceholders = {
   header: 'Редактировать профиль',
   name: 'Имя',
+  button: 'Обновить'
 }
 
 // фразы-плейсхолдеры popup регистрации

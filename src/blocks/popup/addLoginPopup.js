@@ -94,11 +94,10 @@ export default class AddLoginPopup extends AddPicturePopup {
     event.preventDefault();
       this.action.login(this.name.value, this.link.value)
       .then(data => {
-        console.log('data - ' + JSON.stringify(data));
+        console.log(JSON.stringify(data));
         this.authorization.setAuthorization();
         this.action.userInfo()
         .then(res => {
-          console.log(res.data);
           this.userName.textContent = res.data.name;
           this.userJob.textContent = res.data.about;
           this.userAvatar.style.backgroundImage = `url('${res.data.avatar}')`;
