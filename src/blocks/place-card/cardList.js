@@ -1,9 +1,10 @@
 export default class CardList {
-    constructor(container, card, api) {
+    constructor(container, card, api, auth) {
         this.card = card;
         this.container = container;
         this.cards = [];
         this.api = api;
+        this.auth = auth;
     }
 
 //указатель загрузки
@@ -49,24 +50,24 @@ export default class CardList {
           .catch((err) => {
             console.log('createCardError ' + err);
           })
-          .finally(this.loader(false, loadNote));
     }
 
 
 // удаление карточки
     deleteCard() {
         if (event.target.classList.contains('place-card__delete-icon')) {
+          if (!this.auth.checkAuthorization()) {
+            alert('Вы не авторизированы');
+            return;
+          }
           if (confirm('Вы действительно хотите удалить эту карточку?')) {  
             let cardId = event.target.closest('.place-card__image').getAttribute('id');
             this.api.deleteCard(cardId)
-            .then((res) => {
-                if(res.ok) {
-                  return res.json();
-                } else {
-                  return Promise.reject(err);
-                };
-              })
-              .then(() => {
+              .then((res) => {
+                if (!res) {
+                  alert('Вы не можете удалить эту карточку');
+                  return;
+                }
                 this.container.removeChild(document.getElementById(`${cardId}`).closest('.place-card'));
               })
               .catch((err) => {
@@ -81,15 +82,12 @@ export default class CardList {
     like() {
         if (event.target.classList.contains('place-card__like-icon')) {
          if (event.target.classList.contains('place-card__like-icon_liked')) {
+          if (!this.auth.checkAuthorization()) {
+            alert('Авторизируйтесь, чтобы засчитать лайк');
+            return;
+          }
             let cardId = event.target.closest('.place-card').querySelector('.place-card__image').getAttribute('id');
             this.api.likeCard(cardId)
-            .then((res) => {
-            if(res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(err);
-            };
-            })
             .then((res) => {
             document.getElementById(`${cardId}`).closest('.place-card').querySelector('.place-card__like-icon').classList.add('place-card__like-icon_liked');
             document.getElementById(`${cardId}`).closest('.place-card').querySelector('.place-card__like-count').textContent = res.data.likes.length;
@@ -106,15 +104,12 @@ export default class CardList {
     unlike() {
         if (event.target.classList.contains('place-card__like-icon')) {
          if (!event.target.classList.contains('place-card__like-icon_liked')) {
+          if (!this.auth.checkAuthorization()) {
+            alert('Авторизируйтесь, чтобы засчитать лайк');
+            return;
+          }
             let cardId = event.target.closest('.place-card').querySelector('.place-card__image').getAttribute('id');
             this.api.unlikeCard(cardId)
-            .then((res) => {
-                if(res.ok) {
-                  return res.json();
-                } else {
-                  return Promise.reject(err);
-                };
-              })
               .then((res) => {
                 document.getElementById(`${cardId}`).closest('.place-card').querySelector('.place-card__like-icon').classList.remove('place-card__like-icon_liked');
                 document.getElementById(`${cardId}`).closest('.place-card').querySelector('.place-card__like-count').textContent = res.data.likes.length;

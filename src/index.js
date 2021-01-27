@@ -57,7 +57,7 @@ const cardContainer = document.querySelector('.places-list');
 const formValidator = new FormValidator(errorMesages);
 
 //объявление класса создания карточки через popup
-const cardList = new CardList(cardContainer, card, api);
+const cardList = new CardList(cardContainer, card, api, auth);
 
 //новая форма данных пользователя
 const userInfo = new UserInfo(api, userName, userJob, userAvatar);
